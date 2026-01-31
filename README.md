@@ -31,11 +31,11 @@ These scripts automate the installation and configuration of essential tools and
 Installs essential development tools and applications.
 
 **What it installs:**
-- 🌐 **Brave Browser** - Privacy-focused web browser
-- 🤖 **Claude Code** - AI-powered coding assistant CLI
-- ✏️ **Fresh Editor** - Modern text editor
-- 📦 **Podman** - Daemonless container engine
-- 🎁 **Distrobox** - Run any Linux distribution inside your terminal
+- **Brave Browser** - Privacy-focused web browser
+- **Claude Code** - AI-powered coding assistant CLI
+- **Fresh Editor** - Modern text editor
+- **Podman** - Daemonless container engine
+- **Distrobox** - Run any Linux distribution inside your terminal
 
 **Usage:**
 ```bash
@@ -55,10 +55,10 @@ chmod +x setup_tools.sh
 Sets up ZeroTier VPN and SSH server for secure remote access.
 
 **What it does:**
-- 🔐 Installs and configures **ZeroTier One**
-- 🖥️ Installs and enables **SSH server** (openssh)
-- 🔗 Joins your specified ZeroTier network
-- ✅ Automatically starts and enables services on boot
+- Installs and configures **ZeroTier One**
+- Installs and enables **SSH server** (openssh)
+- Joins your specified ZeroTier network
+- Automatically starts and enables services on boot
 
 **Usage:**
 ```bash
@@ -85,12 +85,12 @@ chmod +x setup_zerotier_ssh.sh
 Transforms your terminal with zsh, oh-my-zsh, and beautiful themes.
 
 **What it installs:**
-- 🐚 **Zsh** - Powerful shell
-- 🎨 **Oh-My-Zsh** - Zsh configuration framework
-- ⚡ **Powerlevel10k** - Fast and customizable theme
-- 🎯 **zsh-autosuggestions** - Fish-like autosuggestions
-- 🌈 **zsh-syntax-highlighting** - Syntax highlighting for commands
-- 🔤 **Nerd Fonts** - Icon-packed fonts (Hack, Meslo, Monaspace, Source Code Pro, Space Mono)
+- **Zsh** - Powerful shell
+- **Oh-My-Zsh** - Zsh configuration framework
+- **Powerlevel10k** - Fast and customizable theme
+- **zsh-autosuggestions** - Fish-like autosuggestions
+- **zsh-syntax-highlighting** - Syntax highlighting for commands
+- **Nerd Fonts** - Icon-packed fonts (Hack, Meslo, Monaspace, Source Code Pro, Space Mono)
 
 **Usage:**
 ```bash
@@ -109,16 +109,16 @@ chmod +x setup_zsh.sh
 - **Automatically sets zsh as your default shell**
 
 **Post-installation:**
-- 🔄 Log out and log back in for shell change to take effect
-- 🎨 Powerlevel10k configuration wizard will start automatically
-- 🔤 Select one of the installed Nerd Fonts in your terminal settings for best experience
+- Log out and log back in for shell change to take effect
+- Powerlevel10k configuration wizard will start automatically
+- Select one of the installed Nerd Fonts in your terminal settings for best experience
 
 ## ⚙️ Requirements
 
-- 🐧 Linux system (Arch-based or Debian/Ubuntu-based)
-- 🔐 sudo privileges
-- 🌐 Internet connection
-- 📦 Package manager: `pacman` or `apt`
+- Linux system (Arch-based or Debian/Ubuntu-based)
+- sudo privileges
+- Internet connection
+- Package manager: `pacman` or `apt`
 
 ## 🎮 Usage
 
@@ -167,11 +167,11 @@ chmod +x setup_*.sh
 
 ## 📝 Notes
 
-- ⚠️ All scripts use `set -e` to exit on errors for safety
-- 🎨 Scripts include color-coded output for better readability
-- 💾 Backup files are created automatically where applicable
-- 🔄 Some changes (like shell modifications) require logout/login to take effect
-- 🛡️ Scripts are designed to be run multiple times safely (idempotent)
+- All scripts use `set -e` to exit on errors for safety
+- Scripts include color-coded output for better readability
+- Backup files are created automatically where applicable
+- Some changes (like shell modifications) require logout/login to take effect
+- Scripts are designed to be run multiple times safely (idempotent)
 
 ## 🎨 Color Guide
 
@@ -186,8 +186,4 @@ Feel free to modify these scripts to suit your needs. They're designed to be rea
 
 ## 📄 License
 
-These scripts are provided as-is for personal use. Modify and distribute freely.
-
----
-
-**Happy scripting! 🎉**
+MIT - These scripts are provided as-is for personal use
