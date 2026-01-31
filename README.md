@@ -1,0 +1,186 @@
+# 🚀 Setup Scripts Collection
+
+A collection of automated setup scripts for quickly configuring Linux systems (Arch and Debian/Ubuntu-based distributions).
+
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Scripts](#-scripts)
+  - [Setup Tools](#-setup_toolssh)
+  - [Setup ZeroTier & SSH](#-setup_zerotier_sshshsetup_zerotier_sshsh)
+  - [Setup Zsh](#-setup_zshshsetup_zshsh)
+- [Requirements](#-requirements)
+- [Usage](#-usage)
+- [Supported Distributions](#-supported-distributions)
+- [Notes](#-notes)
+
+## 🎯 Overview
+
+These scripts automate the installation and configuration of essential tools and services for Linux development environments. Each script is designed to be idempotent and handles both Arch-based and Debian/Ubuntu-based distributions.
+
+## 📦 Scripts
+
+### 🔧 `setup_tools.sh`
+
+Installs essential development tools and applications.
+
+**What it installs:**
+- 🌐 **Brave Browser** - Privacy-focused web browser
+- 🤖 **Claude Code** - AI-powered coding assistant CLI
+- ✏️ **Fresh Editor** - Modern text editor
+- 📦 **Podman** - Daemonless container engine
+- 🎁 **Distrobox** - Run any Linux distribution inside your terminal
+
+**Usage:**
+```bash
+chmod +x setup_tools.sh
+./setup_tools.sh
+```
+
+**Features:**
+- Automatically detects your package manager (pacman/apt)
+- Installs paru (AUR helper) on Arch if not present
+- Handles all dependencies automatically
+
+---
+
+### 🌐 `setup_zerotier_ssh.sh`
+
+Sets up ZeroTier VPN and SSH server for secure remote access.
+
+**What it does:**
+- 🔐 Installs and configures **ZeroTier One**
+- 🖥️ Installs and enables **SSH server** (openssh)
+- 🔗 Joins your specified ZeroTier network
+- ✅ Automatically starts and enables services on boot
+
+**Usage:**
+```bash
+chmod +x setup_zerotier_ssh.sh
+./setup_zerotier_ssh.sh
+```
+
+**Interactive prompts:**
+- 🆔 ZeroTier Network ID (you'll need this from your ZeroTier account)
+
+**Features:**
+- Correctly handles SSH service names (`sshd` for Arch, `ssh` for Debian/Ubuntu)
+- Displays ZeroTier IP addresses after setup
+- Shows service status for verification
+
+**Post-installation:**
+- 📝 Remember to authorize your device in the ZeroTier network dashboard
+- 🔑 Your ZeroTier IP will be displayed - use it for SSH connections
+
+---
+
+### 🐚 `setup_zsh.sh`
+
+Transforms your terminal with zsh, oh-my-zsh, and beautiful themes.
+
+**What it installs:**
+- 🐚 **Zsh** - Powerful shell
+- 🎨 **Oh-My-Zsh** - Zsh configuration framework
+- ⚡ **Powerlevel10k** - Fast and customizable theme
+- 🎯 **zsh-autosuggestions** - Fish-like autosuggestions
+- 🌈 **zsh-syntax-highlighting** - Syntax highlighting for commands
+- 🔤 **Nerd Fonts** - Icon-packed fonts (Hack, Meslo, Monaspace, Source Code Pro, Space Mono)
+
+**Usage:**
+```bash
+chmod +x setup_zsh.sh
+./setup_zsh.sh
+```
+
+**Interactive prompts:**
+- 📁 Installation directory for oh-my-zsh (default: `~/.oh-my-zsh`)
+
+**Features:**
+- Automatically backs up existing `.zshrc` before modifications
+- Skips already installed components
+- Installs 5 popular Nerd Fonts automatically
+- Updates font cache
+- **Automatically sets zsh as your default shell**
+
+**Post-installation:**
+- 🔄 Log out and log back in for shell change to take effect
+- 🎨 Powerlevel10k configuration wizard will start automatically
+- 🔤 Select one of the installed Nerd Fonts in your terminal settings for best experience
+
+## ⚙️ Requirements
+
+- 🐧 Linux system (Arch-based or Debian/Ubuntu-based)
+- 🔐 sudo privileges
+- 🌐 Internet connection
+- 📦 Package manager: `pacman` or `apt`
+
+## 🎮 Usage
+
+### Quick Start
+
+1. **Clone or download** the scripts to your system
+2. **Make them executable:**
+   ```bash
+   chmod +x setup_*.sh
+   ```
+3. **Run the desired script:**
+   ```bash
+   ./setup_tools.sh        # Install development tools
+   ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH
+   ./setup_zsh.sh          # Setup zsh environment
+   ```
+
+### Run All Scripts
+
+To set up a complete development environment:
+
+```bash
+chmod +x setup_*.sh
+./setup_tools.sh
+./setup_zerotier_ssh.sh
+./setup_zsh.sh
+```
+
+## 🐧 Supported Distributions
+
+### ✅ Arch-based
+- Arch Linux
+- Manjaro
+- EndeavourOS
+- Garuda Linux
+- Any distribution using `pacman`
+
+### ✅ Debian/Ubuntu-based
+- Ubuntu
+- Debian
+- Linux Mint
+- Pop!_OS
+- Elementary OS
+- Any distribution using `apt`
+
+## 📝 Notes
+
+- ⚠️ All scripts use `set -e` to exit on errors for safety
+- 🎨 Scripts include color-coded output for better readability
+- 💾 Backup files are created automatically where applicable
+- 🔄 Some changes (like shell modifications) require logout/login to take effect
+- 🛡️ Scripts are designed to be run multiple times safely (idempotent)
+
+## 🎨 Color Guide
+
+Throughout script execution, you'll see color-coded messages:
+- 🟢 **Green** - Success messages and info
+- 🟡 **Yellow** - Warnings and prompts
+- 🔴 **Red** - Error messages
+
+## 🤝 Contributing
+
+Feel free to modify these scripts to suit your needs. They're designed to be readable and easy to customize.
+
+## 📄 License
+
+These scripts are provided as-is for personal use. Modify and distribute freely.
+
+---
+
+**Happy scripting! 🎉**
