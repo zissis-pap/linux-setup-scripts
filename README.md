@@ -31,11 +31,12 @@ These scripts automate the installation and configuration of essential tools and
 Installs essential development tools and applications.
 
 **What it installs:**
-- **Brave Browser** - Privacy-focused web browser
-- **Claude Code** - AI-powered coding assistant CLI
-- **Fresh Editor** - Modern text editor
-- **Podman** - Daemonless container engine
-- **Distrobox** - Run any Linux distribution inside your terminal
+- **[Brave Browser](https://brave.com)** - Privacy-focused web browser
+- **[Claude Code](https://claude.ai)** - AI-powered coding assistant CLI
+- **[Fresh Editor](https://github.com/sinelaw/fresh)** - Modern text editor
+- **[OpenCode](https://opencode.ai)** - AI-powered code editor
+- **[Podman](https://podman.io)** - Daemonless container engine
+- **[Distrobox](https://github.com/89luca89/distrobox)** - Run any Linux distribution inside your terminal
 
 **Usage:**
 ```bash
@@ -55,8 +56,8 @@ chmod +x setup_tools.sh
 Sets up ZeroTier VPN and SSH server for secure remote access.
 
 **What it does:**
-- Installs and configures **ZeroTier One**
-- Installs and enables **SSH server** (openssh)
+- Installs and configures **[ZeroTier One](https://www.zerotier.com)**
+- Installs and enables **SSH server** ([OpenSSH](https://www.openssh.com))
 - Joins your specified ZeroTier network
 - Automatically starts and enables services on boot
 
@@ -85,12 +86,12 @@ chmod +x setup_zerotier_ssh.sh
 Transforms your terminal with zsh, oh-my-zsh, and beautiful themes.
 
 **What it installs:**
-- **Zsh** - Powerful shell
-- **Oh-My-Zsh** - Zsh configuration framework
-- **Powerlevel10k** - Fast and customizable theme
-- **zsh-autosuggestions** - Fish-like autosuggestions
-- **zsh-syntax-highlighting** - Syntax highlighting for commands
-- **Nerd Fonts** - Icon-packed fonts (Hack, Meslo, Monaspace, Source Code Pro, Space Mono)
+- **[Zsh](https://www.zsh.org)** - Powerful shell
+- **[Oh-My-Zsh](https://ohmyz.sh)** - Zsh configuration framework
+- **[Powerlevel10k](https://github.com/romkatv/powerlevel10k)** - Fast and customizable theme
+- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** - Fish-like autosuggestions
+- **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** - Syntax highlighting for commands
+- **[Nerd Fonts](https://www.nerdfonts.com)** - Icon-packed fonts (Hack, Meslo, Monaspace, Source Code Pro, Space Mono)
 
 **Usage:**
 ```bash

@@ -57,6 +57,11 @@ echo -e "${YELLOW}Installing Fresh Editor...${NC}"
 curl https://raw.githubusercontent.com/sinelaw/fresh/refs/heads/master/scripts/install.sh | sh
 echo -e "${GREEN}Fresh Editor installed successfully${NC}\n"
 
+# Install OpenCode
+echo -e "${YELLOW}Installing OpenCode...${NC}"
+curl -fsSL https://opencode.ai/install | bash
+echo -e "${GREEN}OpenCode installed successfully${NC}\n"
+
 # Install Podman
 echo -e "${YELLOW}Installing Podman...${NC}"
 
@@ -85,6 +90,7 @@ echo -e "${GREEN}=== Installation Complete ===${NC}"
 echo -e "${GREEN}✓ Brave Browser installed${NC}"
 echo -e "${GREEN}✓ Claude Code installed${NC}"
 echo -e "${GREEN}✓ Fresh Editor installed${NC}"
+echo -e "${GREEN}✓ OpenCode installed${NC}"
 echo -e "${GREEN}✓ Podman installed${NC}"
 echo -e "${GREEN}✓ Distrobox installed${NC}\n"
 echo -e "${YELLOW}Note: You may need to restart your terminal or run 'source ~/.bashrc' to use some tools${NC}"
