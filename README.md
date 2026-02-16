@@ -31,12 +31,20 @@ These scripts automate the installation and configuration of essential tools and
 Installs essential development tools and applications.
 
 **What it installs:**
-- **[Brave Browser](https://brave.com)** - Privacy-focused web browser
-- **[Claude Code](https://claude.ai)** - AI-powered coding assistant CLI
-- **[Fresh Editor](https://github.com/sinelaw/fresh)** - Modern text editor
-- **[OpenCode](https://opencode.ai)** - AI-powered code editor
-- **[Podman](https://podman.io)** - Daemonless container engine
-- **[Distrobox](https://github.com/89luca89/distrobox)** - Run any Linux distribution inside your terminal
+- [![Brave Browser](https://img.shields.io/badge/Brave_Browser-F3702A?style=for-the-badge&logo=brave&logoColor=white)](https://brave.com) - Privacy-focused web browser
+- [![Claude Code](https://img.shields.io/badge/Claude_Code-242424?style=for-the-badge&logo=claude&logoColor=white)](https://claude.ai) - AI-powered coding assistant CLI
+- [![Fresh Editor](https://img.shields.io/badge/Fresh_Editor-4F4F4F?style=for-the-badge&logo=visual-studio-code&logoColor=007ACC)](https://github.com/sinelaw/fresh) - Modern text editor
+- [![OpenCode](https://img.shields.io/badge/OpenCode-121011?style=for-the-badge&logo=python&logoColor=white)](https://opencode.ai) - AI-powered code editor
+- [![Podman](https://img.shields.io/badge/Podman-5A697B?style=for-the-badge&logo=podman&logoColor=white)](https://podman.io) - Daemonless container engine
+- [![Distrobox](https://img.shields.io/badge/Distrobox-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://github.com/89luca89/distrobox) - Run any Linux distribution inside your terminal
+- [![time](https://img.shields.io/badge/Time-4F4F4F?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/time/) - Measure program running time
+- [![tree](https://img.shields.io/badge/tree-006400?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://mama.indstate.edu/users/ice/tree/) - Directory tree viewer
+- [![btop](https://img.shields.io/badge/btop-212121?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/arcticicestudio/btop) - Modern terminal resource monitor
+- [![amdgpu_top](https://img.shields.io/badge/amdgpu_top-FF0000?style=for-the-badge&logo=amd&logoColor=white)](https://github.com/Umio-Yasuno/amdgpu_top) - AMD GPU monitoring tool
+- [![fastfetch](https://img.shields.io/badge/fastfetch-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://github.com/fastfetch-cli/fastfetch) - System information tool
+- [![mpv](https://img.shields.io/badge/mpv-1A1A1A?style=for-the-badge&logo=video-mp4&logoColor=white)](https://mpv.io) - Media player
+- [![yt-dlp](https://img.shields.io/badge/yt--dlp-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp) - YouTube video downloader
+- [![mc](https://img.shields.io/badge/Midnight_Commander-343756?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.midnight-commander.com/) - File manager
 
 **Usage:**
 ```bash

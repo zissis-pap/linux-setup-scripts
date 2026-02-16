@@ -85,6 +85,103 @@ fi
 
 echo -e "${GREEN}Distrobox installed successfully${NC}\n"
 
+# Install time
+echo -e "${YELLOW}Installing time...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm time
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y time
+fi
+
+echo -e "${GREEN}time installed successfully${NC}\n"
+
+# Install tree
+echo -e "${YELLOW}Installing tree...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm tree
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y tree
+fi
+
+echo -e "${GREEN}tree installed successfully${NC}\n"
+
+# Install btop
+echo -e "${YELLOW}Installing btop...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm btop
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y btop
+fi
+
+echo -e "${GREEN}btop installed successfully${NC}\n"
+
+# Install amdgpu_top
+echo -e "${YELLOW}Installing amdgpu_top...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm amdgpu_top
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    echo -e "${YELLOW}amdgpu_top is not available in official apt repositories. Skipping.${NC}"
+    echo -e "${YELLOW}To install manually, download the .deb from: https://github.com/Umio-Yasuno/amdgpu_top/releases${NC}"
+fi
+
+echo -e "${GREEN}amdgpu_top step done${NC}\n"
+
+# Install fastfetch
+echo -e "${YELLOW}Installing fastfetch...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm fastfetch
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    if apt-cache show fastfetch &>/dev/null; then
+        sudo apt install -y fastfetch
+    else
+        echo -e "${YELLOW}fastfetch not found in apt repositories. Skipping.${NC}"
+    fi
+fi
+
+echo -e "${GREEN}fastfetch step done${NC}\n"
+
+# Install mpv
+echo -e "${YELLOW}Installing mpv...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm mpv
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y mpv
+fi
+
+echo -e "${GREEN}mpv installed successfully${NC}\n"
+
+# Install yt-dlp
+echo -e "${YELLOW}Installing yt-dlp...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm yt-dlp
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    if apt-cache show yt-dlp &>/dev/null; then
+        sudo apt install -y yt-dlp
+    else
+        echo -e "${YELLOW}yt-dlp not found in apt repositories. Skipping.${NC}"
+    fi
+fi
+
+echo -e "${GREEN}yt-dlp step done${NC}\n"
+
+# Install mc (Midnight Commander)
+echo -e "${YELLOW}Installing mc (Midnight Commander)...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm mc
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y mc
+fi
+
+echo -e "${GREEN}mc installed successfully${NC}\n"
+
 # Final summary
 echo -e "${GREEN}=== Installation Complete ===${NC}"
 echo -e "${GREEN}✓ Brave Browser installed${NC}"
@@ -92,5 +189,17 @@ echo -e "${GREEN}✓ Claude Code installed${NC}"
 echo -e "${GREEN}✓ Fresh Editor installed${NC}"
 echo -e "${GREEN}✓ OpenCode installed${NC}"
 echo -e "${GREEN}✓ Podman installed${NC}"
-echo -e "${GREEN}✓ Distrobox installed${NC}\n"
+echo -e "${GREEN}✓ Distrobox installed${NC}"
+echo -e "${GREEN}✓ time installed${NC}"
+echo -e "${GREEN}✓ tree installed${NC}"
+echo -e "${GREEN}✓ btop installed${NC}"
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    echo -e "${GREEN}✓ amdgpu_top installed${NC}"
+else
+    echo -e "${YELLOW}⚠ amdgpu_top skipped (not in apt repos - install manually from GitHub)${NC}"
+fi
+echo -e "${GREEN}✓ fastfetch installed (if available)${NC}"
+echo -e "${GREEN}✓ mpv installed${NC}"
+echo -e "${GREEN}✓ yt-dlp installed (if available)${NC}"
+echo -e "${GREEN}✓ mc (Midnight Commander) installed${NC}\n"
 echo -e "${YELLOW}Note: You may need to restart your terminal or run 'source ~/.bashrc' to use some tools${NC}"
