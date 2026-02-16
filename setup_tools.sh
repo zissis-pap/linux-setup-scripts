@@ -182,6 +182,75 @@ fi
 
 echo -e "${GREEN}mc installed successfully${NC}\n"
 
+# Install superfile
+echo -e "${YELLOW}Installing superfile...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm superfile
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    echo -e "${YELLOW}superfile not available in official apt repositories. Skipping.${NC}"
+fi
+
+echo -e "${GREEN}superfile step done${NC}\n"
+
+# Install navi
+echo -e "${YELLOW}Installing navi...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm navi
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    echo -e "${YELLOW}navi not available in official apt repositories. Skipping.${NC}"
+fi
+
+echo -e "${GREEN}navi step done${NC}\n"
+
+# Install dua-cli
+echo -e "${YELLOW}Installing dua-cli...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm dua-cli
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    echo -e "${YELLOW}dua-cli not available in official apt repositories. Skipping.${NC}"
+fi
+
+echo -e "${GREEN}dua-cli step done${NC}\n"
+
+# Install duf
+echo -e "${YELLOW}Installing duf...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm duf
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    echo -e "${YELLOW}duf not available in official apt repositories. Skipping.${NC}"
+fi
+
+echo -e "${GREEN}duf step done${NC}\n"
+
+# Install zoxide
+echo -e "${YELLOW}Installing zoxide...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm zoxide
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    echo -e "${YELLOW}zoxide not available in official apt repositories. Skipping.${NC}"
+fi
+
+echo -e "${GREEN}zoxide step done${NC}\n"
+
+# Add zoxide init to .zshrc
+echo -e "${YELLOW}Adding zoxide init to ~/.zshrc...${NC}"
+if [ -f ~/.zshrc ]; then
+    if ! grep -q "eval \"\$(zoxide init zsh)\"" ~/.zshrc; then
+        echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
+        echo -e "${GREEN}zoxide init added to ~/.zshrc${NC}"
+    else
+        echo -e "${YELLOW}zoxide init already exists in ~/.zshrc${NC}"
+    fi
+else
+    echo -e "${YELLOW}~/.zshrc not found. Skipping.${NC}"
+fi
+echo -e "${GREEN}zoxide setup complete${NC}\n"
+
 # Final summary
 echo -e "${GREEN}=== Installation Complete ===${NC}"
 echo -e "${GREEN}✓ Brave Browser installed${NC}"
@@ -201,5 +270,10 @@ fi
 echo -e "${GREEN}✓ fastfetch installed (if available)${NC}"
 echo -e "${GREEN}✓ mpv installed${NC}"
 echo -e "${GREEN}✓ yt-dlp installed (if available)${NC}"
-echo -e "${GREEN}✓ mc (Midnight Commander) installed${NC}\n"
+echo -e "${GREEN}✓ mc (Midnight Commander) installed${NC}"
+echo -e "${GREEN}✓ superfile installed (if available)${NC}"
+echo -e "${GREEN}✓ navi installed (if available)${NC}"
+echo -e "${GREEN}✓ dua-cli installed (if available)${NC}"
+echo -e "${GREEN}✓ duf installed (if available)${NC}"
+echo -e "${GREEN}✓ zoxide installed (if available)${NC}\n"
 echo -e "${YELLOW}Note: You may need to restart your terminal or run 'source ~/.bashrc' to use some tools${NC}"

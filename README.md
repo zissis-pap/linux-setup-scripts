@@ -45,6 +45,11 @@ Installs essential development tools and applications.
 - [![mpv](https://img.shields.io/badge/mpv-1A1A1A?style=for-the-badge&logo=video-mp4&logoColor=white)](https://mpv.io) - Media player
 - [![yt-dlp](https://img.shields.io/badge/yt--dlp-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp) - YouTube video downloader
 - [![mc](https://img.shields.io/badge/Midnight_Commander-343756?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.midnight-commander.com/) - File manager
+- [![superfile](https://img.shields.io/badge/superfile-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://github.com/Mister-Boop/superfile) - Modern file manager
+- [![navi](https://img.shields.io/badge/navi-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/denisidoro/navi) - Interactive command-line launcher
+- [![dua-cli](https://img.shields.io/badge/dua--cli-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/Byron/dua-cli) - Disk usage analyzer
+- [![duf](https://img.shields.io/badge/duf-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/dexec/duf) - Disk usage/free utility
+- [![zoxide](https://img.shields.io/badge/zoxide-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/ajeetdsouza/zoxide) - Smart cd command
 
 **Usage:**
 ```bash
