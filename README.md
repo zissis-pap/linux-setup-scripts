@@ -118,7 +118,7 @@ chmod +x setup_zsh.sh
 - **Automatically sets zsh as your default shell**
 
 **Post-installation:**
-- Log out and log back in for shell change to take effect
+- ⚠️ **Important**: Restart your computer after running this script for the shell change to take effect properly
 - Powerlevel10k configuration wizard will start automatically
 - Select one of the installed Nerd Fonts in your terminal settings for best experience
 
@@ -138,11 +138,18 @@ chmod +x setup_zsh.sh
    ```bash
    chmod +x setup_*.sh
    ```
-3. **Run the desired script:**
+
+3. **✅ First: Run the Zsh setup script** (recommended to run first for best experience):
+   ```bash
+   ./setup_zsh.sh
+   ```
+
+4. **🔄 Restart your computer** for shell changes to take effect properly
+
+5. **🚀 Then run the remaining scripts**:
    ```bash
    ./setup_tools.sh        # Install development tools
    ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH
-   ./setup_zsh.sh          # Setup zsh environment
    ```
 
 ### Run All Scripts
@@ -151,9 +158,15 @@ To set up a complete development environment:
 
 ```bash
 chmod +x setup_*.sh
+
+# 1. Run Zsh setup first
+./setup_zsh.sh
+
+# 2. Restart your computer
+
+# 3. Run remaining scripts
 ./setup_tools.sh
 ./setup_zerotier_ssh.sh
-./setup_zsh.sh
 ```
 
 ## 🐧 Supported Distributions
@@ -179,7 +192,7 @@ chmod +x setup_*.sh
 - All scripts use `set -e` to exit on errors for safety
 - Scripts include color-coded output for better readability
 - Backup files are created automatically where applicable
-- Some changes (like shell modifications) require logout/login to take effect
+- ⚠️ **For best results, run `setup_zsh.sh` first, then restart your computer** before running other scripts
 - Scripts are designed to be run multiple times safely (idempotent)
 
 ## 🎨 Color Guide
