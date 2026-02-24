@@ -20,11 +20,22 @@ if command -v pacman &> /dev/null; then
 elif command -v apt &> /dev/null; then
     DISTRO_TYPE="ubuntu"
     echo -e "${GREEN}apt detected - Debian/Ubuntu-based system${NC}\n"
+    sudo apt update
 else
     echo -e "${RED}No supported package manager found (pacman or apt)${NC}"
     echo -e "${YELLOW}This script supports Arch-based (pacman) and Debian/Ubuntu-based (apt) systems only.${NC}"
     exit 1
 fi
+
+# Helper function for apt installations with package availability check
+apt_install() {
+    local package="$1"
+    if apt-cache show "$package" &>/dev/null 2>&1; then
+        sudo apt install -y "$package"
+    else
+        echo -e "${YELLOW}$package not found in apt repositories. Skipping.${NC}"
+    fi
+}
 
 # Install Brave Browser
 echo -e "${YELLOW}Installing Brave Browser...${NC}"
@@ -68,11 +79,10 @@ echo -e "${YELLOW}Installing Podman...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm podman
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt update
-    sudo apt install -y podman
+    apt_install podman
 fi
 
-echo -e "${GREEN}Podman installed successfully${NC}\n"
+echo -e "${GREEN}Podman step done${NC}\n"
 
 # Install Distrobox
 echo -e "${YELLOW}Installing Distrobox...${NC}"
@@ -91,10 +101,10 @@ echo -e "${YELLOW}Installing time...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm time
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y time
+    apt_install time
 fi
 
-echo -e "${GREEN}time installed successfully${NC}\n"
+echo -e "${GREEN}time step done${NC}\n"
 
 # Install tree
 echo -e "${YELLOW}Installing tree...${NC}"
@@ -102,10 +112,10 @@ echo -e "${YELLOW}Installing tree...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm tree
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y tree
+    apt_install tree
 fi
 
-echo -e "${GREEN}tree installed successfully${NC}\n"
+echo -e "${GREEN}tree step done${NC}\n"
 
 # Install btop
 echo -e "${YELLOW}Installing btop...${NC}"
@@ -113,10 +123,10 @@ echo -e "${YELLOW}Installing btop...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm btop
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y btop
+    apt_install btop
 fi
 
-echo -e "${GREEN}btop installed successfully${NC}\n"
+echo -e "${GREEN}btop step done${NC}\n"
 
 # Install amdgpu_top
 echo -e "${YELLOW}Installing amdgpu_top...${NC}"
@@ -124,8 +134,7 @@ echo -e "${YELLOW}Installing amdgpu_top...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm amdgpu_top
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    echo -e "${YELLOW}amdgpu_top is not available in official apt repositories. Skipping.${NC}"
-    echo -e "${YELLOW}To install manually, download the .deb from: https://github.com/Umio-Yasuno/amdgpu_top/releases${NC}"
+    apt_install amdgpu-top
 fi
 
 echo -e "${GREEN}amdgpu_top step done${NC}\n"
@@ -136,11 +145,7 @@ echo -e "${YELLOW}Installing fastfetch...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm fastfetch
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    if apt-cache show fastfetch &>/dev/null; then
-        sudo apt install -y fastfetch
-    else
-        echo -e "${YELLOW}fastfetch not found in apt repositories. Skipping.${NC}"
-    fi
+    apt_install fastfetch
 fi
 
 echo -e "${GREEN}fastfetch step done${NC}\n"
@@ -151,10 +156,10 @@ echo -e "${YELLOW}Installing mpv...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm mpv
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y mpv
+    apt_install mpv
 fi
 
-echo -e "${GREEN}mpv installed successfully${NC}\n"
+echo -e "${GREEN}mpv step done${NC}\n"
 
 # Install yt-dlp
 echo -e "${YELLOW}Installing yt-dlp...${NC}"
@@ -162,11 +167,7 @@ echo -e "${YELLOW}Installing yt-dlp...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm yt-dlp
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    if apt-cache show yt-dlp &>/dev/null; then
-        sudo apt install -y yt-dlp
-    else
-        echo -e "${YELLOW}yt-dlp not found in apt repositories. Skipping.${NC}"
-    fi
+    apt_install yt-dlp
 fi
 
 echo -e "${GREEN}yt-dlp step done${NC}\n"
@@ -177,10 +178,10 @@ echo -e "${YELLOW}Installing mc (Midnight Commander)...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm mc
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y mc
+    apt_install mc
 fi
 
-echo -e "${GREEN}mc installed successfully${NC}\n"
+echo -e "${GREEN}mc step done${NC}\n"
 
 # Install superfile
 echo -e "${YELLOW}Installing superfile...${NC}"
@@ -188,7 +189,7 @@ echo -e "${YELLOW}Installing superfile...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm superfile
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    echo -e "${YELLOW}superfile not available in official apt repositories. Skipping.${NC}"
+    apt_install superfile
 fi
 
 echo -e "${GREEN}superfile step done${NC}\n"
@@ -199,7 +200,7 @@ echo -e "${YELLOW}Installing navi...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm navi
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    echo -e "${YELLOW}navi not available in official apt repositories. Skipping.${NC}"
+    apt_install navi
 fi
 
 echo -e "${GREEN}navi step done${NC}\n"
@@ -210,7 +211,7 @@ echo -e "${YELLOW}Installing dua-cli...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm dua-cli
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    echo -e "${YELLOW}dua-cli not available in official apt repositories. Skipping.${NC}"
+    apt_install dua-cli
 fi
 
 echo -e "${GREEN}dua-cli step done${NC}\n"
@@ -221,7 +222,7 @@ echo -e "${YELLOW}Installing duf...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm duf
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    echo -e "${YELLOW}duf not available in official apt repositories. Skipping.${NC}"
+    apt_install duf
 fi
 
 echo -e "${GREEN}duf step done${NC}\n"
@@ -232,7 +233,7 @@ echo -e "${YELLOW}Installing zoxide...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm zoxide
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    echo -e "${YELLOW}zoxide not available in official apt repositories. Skipping.${NC}"
+    apt_install zoxide
 fi
 
 echo -e "${GREEN}zoxide step done${NC}\n"
@@ -257,10 +258,10 @@ echo -e "${YELLOW}Installing Neovim...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm neovim
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y neovim
+    apt_install neovim
 fi
 
-echo -e "${GREEN}Neovim installed successfully${NC}\n"
+echo -e "${GREEN}Neovim step done${NC}\n"
 
 # Install LazyVim
 echo -e "${YELLOW}Installing LazyVim...${NC}"
@@ -274,10 +275,10 @@ echo -e "${YELLOW}Installing kitty...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm kitty
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y kitty
+    apt_install kitty
 fi
 
-echo -e "${GREEN}kitty installed successfully${NC}\n"
+echo -e "${GREEN}kitty step done${NC}\n"
 
 # Install tmux
 echo -e "${YELLOW}Installing tmux...${NC}"
@@ -285,10 +286,10 @@ echo -e "${YELLOW}Installing tmux...${NC}"
 if [ "$DISTRO_TYPE" == "arch" ]; then
     sudo pacman -S --noconfirm tmux
 elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-    sudo apt install -y tmux
+    apt_install tmux
 fi
 
-echo -e "${GREEN}tmux installed successfully${NC}\n"
+echo -e "${GREEN}tmux step done${NC}\n"
 
 # Final summary
 echo -e "${GREEN}=== Installation Complete ===${NC}"
@@ -296,27 +297,23 @@ echo -e "${GREEN}✓ Brave Browser installed${NC}"
 echo -e "${GREEN}✓ Claude Code installed${NC}"
 echo -e "${GREEN}✓ Fresh Editor installed${NC}"
 echo -e "${GREEN}✓ OpenCode installed${NC}"
-echo -e "${GREEN}✓ Podman installed${NC}"
+echo -e "${GREEN}✓ Podman installed (if available)${NC}"
 echo -e "${GREEN}✓ Distrobox installed${NC}"
-echo -e "${GREEN}✓ time installed${NC}"
-echo -e "${GREEN}✓ tree installed${NC}"
-echo -e "${GREEN}✓ btop installed${NC}"
-if [ "$DISTRO_TYPE" == "arch" ]; then
-    echo -e "${GREEN}✓ amdgpu_top installed${NC}"
-else
-    echo -e "${YELLOW}⚠ amdgpu_top skipped (not in apt repos - install manually from GitHub)${NC}"
-fi
+echo -e "${GREEN}✓ time installed (if available)${NC}"
+echo -e "${GREEN}✓ tree installed (if available)${NC}"
+echo -e "${GREEN}✓ btop installed (if available)${NC}"
+echo -e "${GREEN}✓ amdgpu_top installed (if available)${NC}"
 echo -e "${GREEN}✓ fastfetch installed (if available)${NC}"
-echo -e "${GREEN}✓ mpv installed${NC}"
+echo -e "${GREEN}✓ mpv installed (if available)${NC}"
 echo -e "${GREEN}✓ yt-dlp installed (if available)${NC}"
-echo -e "${GREEN}✓ mc (Midnight Commander) installed${NC}"
+echo -e "${GREEN}✓ mc (Midnight Commander) installed (if available)${NC}"
 echo -e "${GREEN}✓ superfile installed (if available)${NC}"
 echo -e "${GREEN}✓ navi installed (if available)${NC}"
 echo -e "${GREEN}✓ dua-cli installed (if available)${NC}"
 echo -e "${GREEN}✓ duf installed (if available)${NC}"
 echo -e "${GREEN}✓ zoxide installed (if available)${NC}"
-echo -e "${GREEN}✓ Neovim installed${NC}"
+echo -e "${GREEN}✓ Neovim installed (if available)${NC}"
 echo -e "${GREEN}✓ LazyVim installed${NC}"
-echo -e "${GREEN}✓ kitty installed${NC}"
-echo -e "${GREEN}✓ tmux installed${NC}\n"
+echo -e "${GREEN}✓ kitty installed (if available)${NC}"
+echo -e "${GREEN}✓ tmux installed (if available)${NC}\n"
 echo -e "${YELLOW}Note: You may need to restart your terminal or run 'source ~/.bashrc' to use some tools${NC}"

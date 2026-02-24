@@ -64,7 +64,8 @@ chmod +x setup_tools.sh
 **Features:**
 - Automatically detects your package manager (pacman/apt)
 - Installs paru (AUR helper) on Arch if not present
-- Handles all dependencies automatically
+- Runs `apt update` once at the start on Debian/Ubuntu systems
+- Checks package availability before installing on apt — skips gracefully if a package is not in the repositories
 
 ---
 
