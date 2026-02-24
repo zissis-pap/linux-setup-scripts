@@ -251,6 +251,45 @@ else
 fi
 echo -e "${GREEN}zoxide setup complete${NC}\n"
 
+# Install Neovim
+echo -e "${YELLOW}Installing Neovim...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm neovim
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y neovim
+fi
+
+echo -e "${GREEN}Neovim installed successfully${NC}\n"
+
+# Install LazyVim
+echo -e "${YELLOW}Installing LazyVim...${NC}"
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
+echo -e "${GREEN}LazyVim installed successfully${NC}\n"
+
+# Install kitty
+echo -e "${YELLOW}Installing kitty...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm kitty
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y kitty
+fi
+
+echo -e "${GREEN}kitty installed successfully${NC}\n"
+
+# Install tmux
+echo -e "${YELLOW}Installing tmux...${NC}"
+
+if [ "$DISTRO_TYPE" == "arch" ]; then
+    sudo pacman -S --noconfirm tmux
+elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+    sudo apt install -y tmux
+fi
+
+echo -e "${GREEN}tmux installed successfully${NC}\n"
+
 # Final summary
 echo -e "${GREEN}=== Installation Complete ===${NC}"
 echo -e "${GREEN}✓ Brave Browser installed${NC}"
@@ -275,5 +314,9 @@ echo -e "${GREEN}✓ superfile installed (if available)${NC}"
 echo -e "${GREEN}✓ navi installed (if available)${NC}"
 echo -e "${GREEN}✓ dua-cli installed (if available)${NC}"
 echo -e "${GREEN}✓ duf installed (if available)${NC}"
-echo -e "${GREEN}✓ zoxide installed (if available)${NC}\n"
+echo -e "${GREEN}✓ zoxide installed (if available)${NC}"
+echo -e "${GREEN}✓ Neovim installed${NC}"
+echo -e "${GREEN}✓ LazyVim installed${NC}"
+echo -e "${GREEN}✓ kitty installed${NC}"
+echo -e "${GREEN}✓ tmux installed${NC}\n"
 echo -e "${YELLOW}Note: You may need to restart your terminal or run 'source ~/.bashrc' to use some tools${NC}"

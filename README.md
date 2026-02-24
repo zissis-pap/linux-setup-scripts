@@ -50,6 +50,10 @@ Installs essential development tools and applications.
 - [![dua-cli](https://img.shields.io/badge/dua--cli-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/Byron/dua-cli) - Disk usage analyzer
 - [![duf](https://img.shields.io/badge/duf-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/dexec/duf) - Disk usage/free utility
 - [![zoxide](https://img.shields.io/badge/zoxide-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/ajeetdsouza/zoxide) - Smart cd command
+- [![Neovim](https://img.shields.io/badge/Neovim-57A143?style=for-the-badge&logo=neovim&logoColor=white)](https://neovim.io) - Hyperextensible Vim-based text editor
+- [![LazyVim](https://img.shields.io/badge/LazyVim-57A143?style=for-the-badge&logo=neovim&logoColor=white)](https://www.lazyvim.org) - Neovim setup powered by lazy.nvim
+- [![kitty](https://img.shields.io/badge/kitty-1A1A1A?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://sw.kovidgoyal.net/kitty/) - Fast, feature-rich GPU-based terminal emulator
+- [![tmux](https://img.shields.io/badge/tmux-1BB91F?style=for-the-badge&logo=tmux&logoColor=white)](https://github.com/tmux/tmux) - Terminal multiplexer
 
 **Usage:**
 ```bash
