@@ -45,9 +45,9 @@ Installs essential development tools and applications.
 - [![mpv](https://img.shields.io/badge/mpv-1A1A1A?style=for-the-badge&logo=video-mp4&logoColor=white)](https://mpv.io) - Media player
 - [![yt-dlp](https://img.shields.io/badge/yt--dlp-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp) - YouTube video downloader
 - [![mc](https://img.shields.io/badge/Midnight_Commander-343756?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.midnight-commander.com/) - File manager
-- [![superfile](https://img.shields.io/badge/superfile-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://github.com/Mister-Boop/superfile) - Modern file manager
+- [![superfile](https://img.shields.io/badge/superfile-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://github.com/Mister-Boop/superfile) - Modern file manager (binary: `spf`)
 - [![navi](https://img.shields.io/badge/navi-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/denisidoro/navi) - Interactive command-line launcher
-- [![dua-cli](https://img.shields.io/badge/dua--cli-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/Byron/dua-cli) - Disk usage analyzer
+- [![dua-cli](https://img.shields.io/badge/dua--cli-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/Byron/dua-cli) - Disk usage analyzer (binary: `dua`)
 - [![duf](https://img.shields.io/badge/duf-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/dexec/duf) - Disk usage/free utility
 - [![zoxide](https://img.shields.io/badge/zoxide-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/ajeetdsouza/zoxide) - Smart cd command
 - [![Neovim](https://img.shields.io/badge/Neovim-57A143?style=for-the-badge&logo=neovim&logoColor=white)](https://neovim.io) - Hyperextensible Vim-based text editor
@@ -65,7 +65,9 @@ chmod +x setup_tools.sh
 - Automatically detects your package manager (pacman/apt)
 - Installs paru (AUR helper) on Arch if not present
 - Runs `apt update` once at the start on Debian/Ubuntu systems
+- Checks if tools are already installed before installing (idempotent)
 - Checks package availability before installing on apt — skips gracefully if a package is not in the repositories
+- For apt-based systems, uses `dpkg` to check if packages are already installed
 
 ---
 
@@ -204,6 +206,7 @@ chmod +x setup_*.sh
 - Backup files are created automatically where applicable
 - ⚠️ **For best results, run `setup_zsh.sh` first, then restart your computer** before running other scripts
 - Scripts are designed to be run multiple times safely (idempotent)
+- **Note for zsh configuration**: Changes to `.zshrc` are applied only once, but require `source ~/.zshrc` or a new terminal to take effect
 
 ## 🎨 Color Guide
 
