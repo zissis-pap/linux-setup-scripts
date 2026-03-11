@@ -56,17 +56,23 @@ Installs essential development tools and applications.
 - [![kitty](https://img.shields.io/badge/kitty-1A1A1A?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://sw.kovidgoyal.net/kitty/) - Fast, feature-rich GPU-based terminal emulator
 - [![tmux](https://img.shields.io/badge/tmux-1BB91F?style=for-the-badge&logo=tmux&logoColor=white)](https://github.com/tmux/tmux) - Terminal multiplexer
 
+**Config files:**
+- [![kitty](https://img.shields.io/badge/kitty-1A1A1A?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://sw.kovidgoyal.net/kitty/) - Terminal emulator config (`~/.config/kitty/kitty.conf`)
+- [![OpenCode](https://img.shields.io/badge/OpenCode-121011?style=for-the-badge&logo=python&logoColor=white)](https://opencode.ai) - Code editor config (`~/.config/opencode/opencode.json`)
+
 **Usage:**
 ```bash
 chmod +x setup_tools.sh
 ./setup_tools.sh
 ```
 
-**Interactive prompt:**
+**Interactive prompts:**
 - 🐳 Container runtime selection (Docker, Podman, Both, or Neither)
+- ⚙️ Config file installation (kitty and opencode)
 
 **Features:**
 - Interactive container runtime selection (Docker, Podman, Both, or Neither)
+- Config file installation with auto-detection or custom path support
 - Automatically detects your package manager (pacman/apt)
 - Installs paru (AUR helper) on Arch if not present
 - Runs `apt update` once at the start on Debian/Ubuntu systems
@@ -164,10 +170,10 @@ chmod +x setup_zsh.sh
 4. **🔄 Restart your computer** for shell changes to take effect properly
 
 5. **🚀 Then run the remaining scripts**:
-   ```bash
-   ./setup_tools.sh        # Install development tools
-   ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH
-   ```
+    ```bash
+    ./setup_tools.sh        # Install development tools (includes config file installation)
+    ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH
+    ```
 
 ### Run All Scripts
 
@@ -182,7 +188,7 @@ chmod +x setup_*.sh
 # 2. Restart your computer
 
 # 3. Run remaining scripts
-./setup_tools.sh
+./setup_tools.sh        # Includes interactive config file installation
 ./setup_zerotier_ssh.sh
 ```
 
@@ -211,6 +217,7 @@ chmod +x setup_*.sh
 - Backup files are created automatically where applicable
 - ⚠️ **For best results, run `setup_zsh.sh` first, then restart your computer** before running other scripts
 - Scripts are designed to be run multiple times safely (idempotent)
+- **Config files**: `setup_tools.sh` prompts for kitty and opencode config file installation (auto-detects from script directory or accepts custom paths)
 - **Note for zsh configuration**: Changes to `.zshrc` are applied only once, but require `source ~/.zshrc` or a new terminal to take effect
 
 ## 🎨 Color Guide

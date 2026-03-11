@@ -444,6 +444,83 @@ if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
     echo -e "${GREEN}✓ Podman installed${NC}"
 fi
 echo -e "${GREEN}✓ Distrobox installed${NC}"
+
+# Config file installation
+echo -e "${YELLOW}=== Config File Installation ===${NC}"
+echo -e "${YELLOW}Would you like to install config files for kitty and opencode?${NC}"
+echo -e "${YELLOW}1) Yes, use detected config files${NC}"
+echo -e "${YELLOW}2) Yes, specify custom config file paths${NC}"
+echo -e "${YELLOW}3) Skip config file installation${NC}"
+read -p "Select an option (1-3): " CONFIG_CHOICE
+echo ""
+
+KITTY_CONFIG_PATH=""
+OPENCODE_CONFIG_PATH=""
+
+if [[ "$CONFIG_CHOICE" == "1" || "$CONFIG_CHOICE" == "2" ]]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    
+    if [[ "$CONFIG_CHOICE" == "1" ]]; then
+        echo -e "${YELLOW}Searching for config files in $SCRIPT_DIR...${NC}"
+        
+        if [ -f "$SCRIPT_DIR/kitty.conf" ]; then
+            KITTY_CONFIG_PATH="$SCRIPT_DIR/kitty.conf"
+            echo -e "${GREEN}Found kitty.conf at $KITTY_CONFIG_PATH${NC}"
+        else
+            echo -e "${YELLOW}kitty.conf not found in script directory${NC}"
+        fi
+        
+        if [ -f "$SCRIPT_DIR/opencode.json" ]; then
+            OPENCODE_CONFIG_PATH="$SCRIPT_DIR/opencode.json"
+            echo -e "${GREEN}Found opencode.json at $OPENCODE_CONFIG_PATH${NC}"
+        else
+            echo -e "${YELLOW}opencode.json not found in script directory${NC}"
+        fi
+        
+        if [ -z "$KITTY_CONFIG_PATH" ] && [ -z "$OPENCODE_CONFIG_PATH" ]; then
+            echo -e "${RED}No config files found. Skipping configuration.${NC}"
+            CONFIG_CHOICE="3"
+        else
+            read -p "Continue with detected files? (y/n): " CONFIRM_DETECTED
+            if [[ "$CONFIRM_DETECTED" != "y" ]]; then
+                CONFIG_CHOICE="2"
+            fi
+        fi
+    fi
+    
+    if [[ "$CONFIG_CHOICE" == "2" ]]; then
+        if [ -z "$KITTY_CONFIG_PATH" ]; then
+            read -p "Enter path to kitty.conf: " KITTY_CONFIG_PATH
+        fi
+        if [ -z "$OPENCODE_CONFIG_PATH" ]; then
+            read -p "Enter path to opencode.json: " OPENCODE_CONFIG_PATH
+        fi
+    fi
+fi
+echo ""
+
+if [[ "$CONFIG_CHOICE" != "3" ]]; then
+    mkdir -p ~/.config
+    
+    if [ -n "$KITTY_CONFIG_PATH" ] && [ -f "$KITTY_CONFIG_PATH" ]; then
+        mkdir -p ~/.config/kitty
+        cp "$KITTY_CONFIG_PATH" ~/.config/kitty/kitty.conf
+        echo -e "${GREEN}✓ kitty.conf installed to ~/.config/kitty/kitty.conf${NC}"
+    else
+        echo -e "${YELLOW}skipping kitty.conf (file not found)${NC}"
+    fi
+    
+    if [ -n "$OPENCODE_CONFIG_PATH" ] && [ -f "$OPENCODE_CONFIG_PATH" ]; then
+        mkdir -p ~/.config/opencode
+        cp "$OPENCODE_CONFIG_PATH" ~/.config/opencode/opencode.json
+        echo -e "${GREEN}✓ opencode.json installed to ~/.config/opencode/opencode.json${NC}"
+    else
+        echo -e "${YELLOW}Skipping opencode.json (file not found)${NC}"
+    fi
+else
+    echo -e "${YELLOW}Skipping config file installation${NC}"
+fi
+echo ""
 echo -e "${GREEN}✓ time installed (if available)${NC}"
 echo -e "${GREEN}✓ tree installed (if available)${NC}"
 echo -e "${GREEN}✓ btop installed (if available)${NC}"
@@ -461,4 +538,15 @@ echo -e "${GREEN}✓ Neovim installed (if available)${NC}"
 echo -e "${GREEN}✓ LazyVim installed${NC}"
 echo -e "${GREEN}✓ kitty installed (if available)${NC}"
 echo -e "${GREEN}✓ tmux installed (if available)${NC}\n"
+
+if [[ "$CONFIG_CHOICE" != "3" ]]; then
+    if [ -n "$KITTY_CONFIG_PATH" ] && [ -f "$KITTY_CONFIG_PATH" ]; then
+        echo -e "${GREEN}✓ kitty config installed${NC}"
+    fi
+    if [ -n "$OPENCODE_CONFIG_PATH" ] && [ -f "$OPENCODE_CONFIG_PATH" ]; then
+        echo -e "${GREEN}✓ opencode config installed${NC}"
+    fi
+    echo ""
+fi
+
 echo -e "${YELLOW}Note: You may need to restart your terminal or run 'source ~/.bashrc' to use some tools${NC}"
