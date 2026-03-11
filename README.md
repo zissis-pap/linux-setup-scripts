@@ -35,6 +35,7 @@ Installs essential development tools and applications.
 - [![Claude Code](https://img.shields.io/badge/Claude_Code-242424?style=for-the-badge&logo=claude&logoColor=white)](https://claude.ai) - AI-powered coding assistant CLI
 - [![Fresh Editor](https://img.shields.io/badge/Fresh_Editor-4F4F4F?style=for-the-badge&logo=visual-studio-code&logoColor=007ACC)](https://github.com/sinelaw/fresh) - Modern text editor
 - [![OpenCode](https://img.shields.io/badge/OpenCode-121011?style=for-the-badge&logo=python&logoColor=white)](https://opencode.ai) - AI-powered code editor
+- [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com) - Container platform
 - [![Podman](https://img.shields.io/badge/Podman-5A697B?style=for-the-badge&logo=podman&logoColor=white)](https://podman.io) - Daemonless container engine
 - [![Distrobox](https://img.shields.io/badge/Distrobox-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://github.com/89luca89/distrobox) - Run any Linux distribution inside your terminal
 - [![time](https://img.shields.io/badge/Time-4F4F4F?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/time/) - Measure program running time
@@ -61,7 +62,11 @@ chmod +x setup_tools.sh
 ./setup_tools.sh
 ```
 
+**Interactive prompt:**
+- 🐳 Container runtime selection (Docker, Podman, Both, or Neither)
+
 **Features:**
+- Interactive container runtime selection (Docker, Podman, Both, or Neither)
 - Automatically detects your package manager (pacman/apt)
 - Installs paru (AUR helper) on Arch if not present
 - Runs `apt update` once at the start on Debian/Ubuntu systems

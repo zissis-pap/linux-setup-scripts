@@ -98,19 +98,58 @@ else
     echo -e "${GREEN}OpenCode already installed${NC}\n"
 fi
 
-# Install Podman
-if ! is_installed podman; then
-    echo -e "${YELLOW}Installing Podman...${NC}"
+# Ask about container runtime
+echo -e "${YELLOW}=== Container Runtime Installation ===${NC}"
+echo -e "${YELLOW}Which container runtime would you like to install?${NC}"
+echo -e "${YELLOW}1) Docker only${NC}"
+echo -e "${YELLOW}2) Podman only${NC}"
+echo -e "${YELLOW}3) Both Docker and Podman${NC}"
+echo -e "${YELLOW}4) Neither${NC}"
+read -p "Select an option (1-4): " CONTAINER_CHOICE
+echo ""
+
+# Install Docker
+if [[ "$CONTAINER_CHOICE" == "1" || "$CONTAINER_CHOICE" == "3" ]]; then
+    echo -e "${YELLOW}Installing Docker...${NC}"
 
     if [ "$DISTRO_TYPE" == "arch" ]; then
-        sudo pacman -S --noconfirm podman
+        sudo pacman -S --noconfirm docker
     elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-        apt_install podman
+        echo -e "${YELLOW}Configuring Docker apt repository...${NC}"
+        sudo apt install -y ca-certificates curl
+        sudo install -m 0755 -d /etc/apt/keyrings
+        sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+        VERSION_CODENAME=$(. /etc/os-release && echo "$VERSION_CODENAME")
+        echo "Types: deb
+URIs: https://download.docker.com/linux/debian
+Suites: $VERSION_CODENAME
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc" | sudo tee /etc/apt/sources.list.d/docker.sources
+
+        sudo apt update
+        sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     fi
 
-    echo -e "${GREEN}Podman step done${NC}\n"
-else
-    echo -e "${GREEN}Podman already installed${NC}\n"
+    echo -e "${GREEN}Docker installed successfully${NC}\n"
+fi
+
+# Install Podman
+if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
+    if ! is_installed podman; then
+        echo -e "${YELLOW}Installing Podman...${NC}"
+
+        if [ "$DISTRO_TYPE" == "arch" ]; then
+            sudo pacman -S --noconfirm podman
+        elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+            apt_install podman
+        fi
+
+        echo -e "${GREEN}Podman installed successfully${NC}\n"
+    else
+        echo -e "${GREEN}Podman already installed${NC}\n"
+    fi
 fi
 
 # Install Distrobox
@@ -398,7 +437,12 @@ echo -e "${GREEN}✓ Brave Browser installed${NC}"
 echo -e "${GREEN}✓ Claude Code installed${NC}"
 echo -e "${GREEN}✓ Fresh Editor installed${NC}"
 echo -e "${GREEN}✓ OpenCode installed${NC}"
-echo -e "${GREEN}✓ Podman installed (if available)${NC}"
+if [[ "$CONTAINER_CHOICE" == "1" || "$CONTAINER_CHOICE" == "3" ]]; then
+    echo -e "${GREEN}✓ Docker installed${NC}"
+fi
+if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
+    echo -e "${GREEN}✓ Podman installed${NC}"
+fi
 echo -e "${GREEN}✓ Distrobox installed${NC}"
 echo -e "${GREEN}✓ time installed (if available)${NC}"
 echo -e "${GREEN}✓ tree installed (if available)${NC}"
