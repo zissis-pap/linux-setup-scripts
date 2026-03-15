@@ -132,18 +132,19 @@ chmod +x setup_zsh.sh
 
 **Interactive prompts:**
 - 📁 Installation directory for oh-my-zsh (default: `~/.oh-my-zsh`)
+- 🖋️ Install recommended Nerd Fonts (default: `y`)
 
 **Features:**
 - Automatically backs up existing `.zshrc` before modifications
 - Skips already installed components
-- Installs 5 popular Nerd Fonts automatically
-- Updates font cache
+- Option to install 5 popular Nerd Fonts (can be skipped)
+- Updates font cache (if fonts installed)
 - **Automatically sets zsh as your default shell**
 
 **Post-installation:**
 - ⚠️ **Important**: Restart your computer after running this script for the shell change to take effect properly
 - Powerlevel10k configuration wizard will start automatically
-- Select one of the installed Nerd Fonts in your terminal settings for best experience
+- If fonts were installed, select one of the installed Nerd Fonts in your terminal settings for best experience
 
 ## ⚙️ Requirements
 

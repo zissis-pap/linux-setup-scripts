@@ -45,6 +45,11 @@ fi
 echo_info "Installing wget, curl, git, and zsh..."
 $INSTALL_CMD wget curl git zsh
 
+# Ask about installing recommended fonts
+echo ""
+read -p "Do you wish to install the recommended Nerd Fonts? (y/n) [y]: " INSTALL_FONTS
+INSTALL_FONTS=${INSTALL_FONTS:-y}
+
 # Ask for ZSH installation directory
 echo ""
 read -p "Enter the path for oh-my-zsh installation (default: ~/.oh-my-zsh): " ZSH_DIR
@@ -120,47 +125,49 @@ else
     echo_error ".zshrc not found at $HOME/.zshrc"
 fi
 
-# Download and install Nerd Fonts
-echo_info "Installing Nerd Fonts..."
+# Download and install Nerd Fonts if requested
+if [ "$INSTALL_FONTS" = "y" ]; then
+    echo_info "Installing Nerd Fonts..."
 
-# Create fonts directory if it doesn't exist
-FONTS_DIR="$HOME/.local/share/fonts"
-mkdir -p "$FONTS_DIR"
+    # Create fonts directory if it doesn't exist
+    FONTS_DIR="$HOME/.local/share/fonts"
+    mkdir -p "$FONTS_DIR"
 
-# Create temporary directory for downloads
-TEMP_DIR=$(mktemp -d)
-cd "$TEMP_DIR"
+    # Create temporary directory for downloads
+    TEMP_DIR=$(mktemp -d)
+    cd "$TEMP_DIR"
 
-# Array of font URLs
-FONTS=(
-    "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip"
-    "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip"
-    "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Monaspace.zip"
-    "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SourceCodePro.zip"
-    "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SpaceMono.zip"
-)
+    # Array of font URLs
+    FONTS=(
+        "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip"
+        "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip"
+        "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Monaspace.zip"
+        "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SourceCodePro.zip"
+        "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SpaceMono.zip"
+    )
 
-# Download and extract fonts
-for FONT_URL in "${FONTS[@]}"; do
-    FONT_NAME=$(basename "$FONT_URL" .zip)
-    echo_info "Downloading $FONT_NAME..."
-    wget -q "$FONT_URL" -O "${FONT_NAME}.zip"
-    
-    echo_info "Extracting $FONT_NAME..."
-    unzip -q "${FONT_NAME}.zip" -d "$FONT_NAME"
-    
-    echo_info "Installing $FONT_NAME fonts..."
-    find "$FONT_NAME" -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$FONTS_DIR" \;
-done
+    # Download and extract fonts
+    for FONT_URL in "${FONTS[@]}"; do
+        FONT_NAME=$(basename "$FONT_URL" .zip)
+        echo_info "Downloading $FONT_NAME..."
+        wget -q "$FONT_URL" -O "${FONT_NAME}.zip"
 
-# Clean up
-echo_info "Cleaning up temporary files..."
-cd - > /dev/null
-rm -rf "$TEMP_DIR"
+        echo_info "Extracting $FONT_NAME..."
+        unzip -q "${FONT_NAME}.zip" -d "$FONT_NAME"
 
-# Update font cache
-echo_info "Updating font cache..."
-fc-cache -f "$FONTS_DIR"
+        echo_info "Installing $FONT_NAME fonts..."
+        find "$FONT_NAME" -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$FONTS_DIR" \;
+    done
+
+    # Clean up
+    echo_info "Cleaning up temporary files..."
+    cd - > /dev/null
+    rm -rf "$TEMP_DIR"
+
+    # Update font cache
+    echo_info "Updating font cache..."
+    fc-cache -f "$FONTS_DIR"
+fi
 
 # Set zsh as default shell
 echo_info "Setting zsh as default shell..."
@@ -175,12 +182,16 @@ echo ""
 echo_info "To apply changes:"
 echo_info "1. Log out and log back in (or restart your terminal)"
 echo_info "2. Powerlevel10k configuration wizard will start automatically"
-echo_info "3. Make sure to select one of the installed Nerd Fonts in your terminal settings"
-echo ""
-echo_info "Installed Nerd Fonts:"
-echo_info "  - Hack Nerd Font"
-echo_info "  - Meslo Nerd Font"
-echo_info "  - Monaspace Nerd Font"
-echo_info "  - Source Code Pro Nerd Font"
-echo_info "  - Space Mono Nerd Font"
+if [ "$INSTALL_FONTS" = "y" ]; then
+    echo_info "3. Make sure to select one of the installed Nerd Fonts in your terminal settings"
+    echo ""
+    echo_info "Installed Nerd Fonts:"
+    echo_info "  - Hack Nerd Font"
+    echo_info "  - Meslo Nerd Font"
+    echo_info "  - Monaspace Nerd Font"
+    echo_info "  - Source Code Pro Nerd Font"
+    echo_info "  - Space Mono Nerd Font"
+else
+    echo_info "3. Skip font installation or install them manually later"
+fi
 echo ""
