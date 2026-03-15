@@ -443,12 +443,31 @@ fi
 if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
     echo -e "${GREEN}✓ Podman installed${NC}"
 fi
-echo -e "${GREEN}✓ Distrobox installed${NC}"
-
 # Config file installation
 echo -e "${YELLOW}=== Config File Installation ===${NC}"
-echo -e "${YELLOW}Would you like to install config files for kitty and opencode?${NC}"
-echo -e "${YELLOW}1) Yes, use detected config files${NC}"
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_FILES_DIR="$SCRIPT_DIR/config-files"
+SUBMODULE_INITIALIZED=false
+
+if [ -d "$CONFIG_FILES_DIR" ]; then
+    if [ -f "$CONFIG_FILES_DIR/.git" ] && grep -q "gitdir:" "$CONFIG_FILES_DIR/.git" 2>/dev/null; then
+        SUBMODULE_INITIALIZED=true
+    elif [ -d "$CONFIG_FILES_DIR/.git" ]; then
+        SUBMODULE_INITIALIZED=true
+    fi
+fi
+
+if [ "$SUBMODULE_INITIALIZED" = true ]; then
+    echo -e "${YELLOW}Config files submodule detected.${NC}"
+    echo -e "${YELLOW}Would you like to install config files from the submodule?${NC}"
+else
+    echo -e "${YELLOW}Config files submodule not found.${NC}"
+    echo -e "${YELLOW}Please run: git submodule update --init --recursive${NC}"
+    echo -e "${YELLOW}Would you like to continue without config files?${NC}"
+fi
+
+echo -e "${YELLOW}1) Yes, use config files from submodule${NC}"
 echo -e "${YELLOW}2) Yes, specify custom config file paths${NC}"
 echo -e "${YELLOW}3) Skip config file installation${NC}"
 read -p "Select an option (1-3): " CONFIG_CHOICE
@@ -458,33 +477,31 @@ KITTY_CONFIG_PATH=""
 OPENCODE_CONFIG_PATH=""
 
 if [[ "$CONFIG_CHOICE" == "1" || "$CONFIG_CHOICE" == "2" ]]; then
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    
     if [[ "$CONFIG_CHOICE" == "1" ]]; then
-        echo -e "${YELLOW}Searching for config files in $SCRIPT_DIR...${NC}"
-        
-        if [ -f "$SCRIPT_DIR/kitty.conf" ]; then
-            KITTY_CONFIG_PATH="$SCRIPT_DIR/kitty.conf"
-            echo -e "${GREEN}Found kitty.conf at $KITTY_CONFIG_PATH${NC}"
-        else
-            echo -e "${YELLOW}kitty.conf not found in script directory${NC}"
-        fi
-        
-        if [ -f "$SCRIPT_DIR/opencode.json" ]; then
-            OPENCODE_CONFIG_PATH="$SCRIPT_DIR/opencode.json"
-            echo -e "${GREEN}Found opencode.json at $OPENCODE_CONFIG_PATH${NC}"
-        else
-            echo -e "${YELLOW}opencode.json not found in script directory${NC}"
-        fi
-        
-        if [ -z "$KITTY_CONFIG_PATH" ] && [ -z "$OPENCODE_CONFIG_PATH" ]; then
-            echo -e "${RED}No config files found. Skipping configuration.${NC}"
-            CONFIG_CHOICE="3"
-        else
-            read -p "Continue with detected files? (y/n): " CONFIRM_DETECTED
-            if [[ "$CONFIRM_DETECTED" != "y" ]]; then
-                CONFIG_CHOICE="2"
+        if [ "$SUBMODULE_INITIALIZED" = true ]; then
+            echo -e "${YELLOW}Using config files from submodule...${NC}"
+            
+            if [ -f "$CONFIG_FILES_DIR/kitty.conf" ]; then
+                KITTY_CONFIG_PATH="$CONFIG_FILES_DIR/kitty.conf"
+                echo -e "${GREEN}Found kitty.conf at $KITTY_CONFIG_PATH${NC}"
+            else
+                echo -e "${YELLOW}kitty.conf not found in submodule${NC}"
             fi
+            
+            if [ -f "$CONFIG_FILES_DIR/opencode.json" ]; then
+                OPENCODE_CONFIG_PATH="$CONFIG_FILES_DIR/opencode.json"
+                echo -e "${GREEN}Found opencode.json at $OPENCODE_CONFIG_PATH${NC}"
+            else
+                echo -e "${YELLOW}opencode.json not found in submodule${NC}"
+            fi
+            
+            if [ -z "$KITTY_CONFIG_PATH" ] && [ -z "$OPENCODE_CONFIG_PATH" ]; then
+                echo -e "${RED}No config files found. Skipping configuration.${NC}"
+                CONFIG_CHOICE="3"
+            fi
+        else
+            echo -e "${RED}Config files submodule not initialized.${NC}"
+            CONFIG_CHOICE="3"
         fi
     fi
     

@@ -8,6 +8,17 @@
 
 A collection of automated setup scripts for quickly configuring Linux systems (Arch and Debian/Ubuntu-based distributions).
 
+## 📦 Config Files
+
+This repository includes a submodule for [zissis-pap/config-files](https://github.com/zissis-pap/config-files) that provides curated configuration files for various tools.
+
+**To initialize the submodule:**
+```bash
+git submodule update --init --recursive
+```
+
+The submodule is automatically detected by `setup_tools.sh` which prompts you to install the config files.
+
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
@@ -57,6 +68,7 @@ Installs essential development tools and applications.
 - [![tmux](https://img.shields.io/badge/tmux-1BB91F?style=for-the-badge&logo=tmux&logoColor=white)](https://github.com/tmux/tmux) - Terminal multiplexer
 
 **Config files:**
+The config files are stored in the `config-files/` submodule. When initialized, the script automatically detects and offers to install:
 - [![kitty](https://img.shields.io/badge/kitty-1A1A1A?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://sw.kovidgoyal.net/kitty/) - Terminal emulator config (`~/.config/kitty/kitty.conf`)
 - [![OpenCode](https://img.shields.io/badge/OpenCode-121011?style=for-the-badge&logo=python&logoColor=white)](https://opencode.ai) - Code editor config (`~/.config/opencode/opencode.json`)
 
@@ -72,13 +84,18 @@ chmod +x setup_tools.sh
 
 **Features:**
 - Interactive container runtime selection (Docker, Podman, Both, or Neither)
-- Config file installation with auto-detection or custom path support
+- Config file installation from submodule or custom paths
 - Automatically detects your package manager (pacman/apt)
 - Installs paru (AUR helper) on Arch if not present
 - Runs `apt update` once at the start on Debian/Ubuntu systems
 - Checks if tools are already installed before installing (idempotent)
 - Checks package availability before installing on apt — skips gracefully if a package is not in the repositories
 - For apt-based systems, uses `dpkg` to check if packages are already installed
+
+**Submodule setup:**
+```bash
+git submodule update --init --recursive
+```
 
 ---
 
@@ -158,12 +175,17 @@ chmod +x setup_zsh.sh
 ### Quick Start
 
 1. **Clone or download** the scripts to your system
-2. **Make them executable:**
+2. **Initialize the config-files submodule:**
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+3. **Make them executable:**
    ```bash
    chmod +x setup_*.sh
    ```
 
-3. **✅ First: Run the Zsh setup script** (recommended to run first for best experience):
+4. **✅ First: Run the Zsh setup script** (recommended to run first for best experience):
    ```bash
    ./setup_zsh.sh
    ```
@@ -218,7 +240,7 @@ chmod +x setup_*.sh
 - Backup files are created automatically where applicable
 - ⚠️ **For best results, run `setup_zsh.sh` first, then restart your computer** before running other scripts
 - Scripts are designed to be run multiple times safely (idempotent)
-- **Config files**: `setup_tools.sh` prompts for kitty and opencode config file installation (auto-detects from script directory or accepts custom paths)
+- **Config files**: The `config-files/` submodule contains curated configs for kitty and opencode. Initialize with `git submodule update --init --recursive`. `setup_tools.sh` prompts to install these configs or use custom paths
 - **Note for zsh configuration**: Changes to `.zshrc` are applied only once, but require `source ~/.zshrc` or a new terminal to take effect
 
 ## 🎨 Color Guide
