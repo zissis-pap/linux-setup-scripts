@@ -23,11 +23,11 @@ The submodule is automatically detected by `setup_tools.sh` which prompts you to
 
 - [Overview](#-overview)
 - [Scripts](#-scripts)
+  - [Setup Zsh](#-setup_zshshsetup_zshsh)
+  - [Setup SSH Keys](#-setup_ssh_keyssh)
+  - [Setup ZeroTier & SSH](#-setup_zerotier_sshshsetup_zerotier_sshsh)
   - [Setup Tools](#-setup_toolssh)
   - [Setup AI Tools](#-setup_ai_toolssh)
-  - [Setup ZeroTier & SSH](#-setup_zerotier_sshshsetup_zerotier_sshsh)
-  - [Setup SSH Keys](#-setup_ssh_keyssh)
-  - [Setup Zsh](#-setup_zshshsetup_zshsh)
 - [Requirements](#-requirements)
 - [Usage](#-usage)
 - [Supported Distributions](#-supported-distributions)
@@ -38,6 +38,109 @@ The submodule is automatically detected by `setup_tools.sh` which prompts you to
 These scripts automate the installation and configuration of essential tools and services for Linux development environments. Each script is designed to be idempotent and handles both Arch-based and Debian/Ubuntu-based distributions.
 
 ## 📦 Scripts
+
+### 🐚 `setup_zsh.sh`
+
+Transforms your terminal with zsh, oh-my-zsh, and beautiful themes.
+
+**What it installs:**
+- **[Zsh](https://www.zsh.org)** - Powerful shell
+- **[Oh-My-Zsh](https://ohmyz.sh)** - Zsh configuration framework
+- **[Powerlevel10k](https://github.com/romkatv/powerlevel10k)** - Fast and customizable theme
+- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** - Fish-like autosuggestions
+- **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** - Syntax highlighting for commands
+- **[Nerd Fonts](https://www.nerdfonts.com)** - Icon-packed fonts (Hack, Meslo, Monaspace, Source Code Pro, Space Mono)
+
+**Usage:**
+```bash
+chmod +x setup_zsh.sh
+./setup_zsh.sh
+```
+
+**Interactive prompts:**
+- 📁 Installation directory for oh-my-zsh (default: `~/.oh-my-zsh`)
+- 🖋️ Install recommended Nerd Fonts (default: `y`)
+
+**Features:**
+- Automatically backs up existing `.zshrc` before modifications
+- Skips already installed components
+- Option to install 5 popular Nerd Fonts (can be skipped)
+- Updates font cache (if fonts installed)
+- **Automatically sets zsh as your default shell**
+
+**Post-installation:**
+- ⚠️ **Important**: Restart your computer after running this script for the shell change to take effect properly
+- Powerlevel10k configuration wizard will start automatically
+- If fonts were installed, select one of the installed Nerd Fonts in your terminal settings for best experience
+
+---
+
+### 🔑 `setup_ssh_keys.sh`
+
+Generates an SSH key pair with a passphrase and configures the agent so the passphrase is entered only once per login session.
+
+**What it does:**
+- Detects existing SSH keys (`id_ed25519`, `id_rsa`, `id_ecdsa`, `id_dsa`) — skips generation if one is found
+- Generates a new **ed25519** key pair and prompts for a passphrase
+- Optionally uploads the public key to a remote OpenSSH server via `ssh-copy-id`
+- Installs **[keychain](https://www.funtoo.org/Keychain)** and configures it in `~/.zshrc` and `~/.bashrc`
+
+**Usage:**
+```bash
+chmod +x setup_ssh_keys.sh
+./setup_ssh_keys.sh
+```
+
+**Interactive prompts:**
+- 🏷️ Key label/comment (e.g. your email or hostname)
+- 🔐 Passphrase (entered directly via `ssh-keygen`)
+- 📤 Whether to upload the public key to a remote server (user/host/port)
+
+**Features:**
+- Uses ed25519 (modern, secure key type)
+- `~/.ssh` is created with correct `700` permissions if it doesn't exist
+- keychain starts `ssh-agent` once at first login; all subsequent terminals reuse the cached agent — no repeated passphrase prompts
+- Gracefully handles `ssh-copy-id` failures (prints the manual command instead of aborting)
+- Idempotent: won't add duplicate keychain lines to rc files
+
+**How the passphrase caching works:**
+The following line is appended to your shell rc files:
+```bash
+eval "$(keychain --eval --agents ssh --quiet $HOME/.ssh/id_ed25519)"
+```
+The first terminal opened after login prompts for the passphrase once. All subsequent terminals and SSH connections reuse the running agent. The agent is cleared on logout or reboot.
+
+---
+
+### 🌐 `setup_zerotier_ssh.sh`
+
+Sets up ZeroTier VPN and SSH server for secure remote access.
+
+**What it does:**
+- Installs and configures **[ZeroTier One](https://www.zerotier.com)**
+- Installs and enables **SSH server** ([OpenSSH](https://www.openssh.com))
+- Joins your specified ZeroTier network
+- Automatically starts and enables services on boot
+
+**Usage:**
+```bash
+chmod +x setup_zerotier_ssh.sh
+./setup_zerotier_ssh.sh
+```
+
+**Interactive prompts:**
+- 🆔 ZeroTier Network ID (you'll need this from your ZeroTier account)
+
+**Features:**
+- Correctly handles SSH service names (`sshd` for Arch, `ssh` for Debian/Ubuntu)
+- Displays ZeroTier IP addresses after setup
+- Shows service status for verification
+
+**Post-installation:**
+- 📝 Remember to authorize your device in the ZeroTier network dashboard
+- 🔑 Your ZeroTier IP will be displayed - use it for SSH connections
+
+---
 
 ### 🔧 `setup_tools.sh`
 
@@ -132,109 +235,6 @@ chmod +x setup_ai_tools.sh
 git submodule update --init --recursive
 ```
 
----
-
-### 🌐 `setup_zerotier_ssh.sh`
-
-Sets up ZeroTier VPN and SSH server for secure remote access.
-
-**What it does:**
-- Installs and configures **[ZeroTier One](https://www.zerotier.com)**
-- Installs and enables **SSH server** ([OpenSSH](https://www.openssh.com))
-- Joins your specified ZeroTier network
-- Automatically starts and enables services on boot
-
-**Usage:**
-```bash
-chmod +x setup_zerotier_ssh.sh
-./setup_zerotier_ssh.sh
-```
-
-**Interactive prompts:**
-- 🆔 ZeroTier Network ID (you'll need this from your ZeroTier account)
-
-**Features:**
-- Correctly handles SSH service names (`sshd` for Arch, `ssh` for Debian/Ubuntu)
-- Displays ZeroTier IP addresses after setup
-- Shows service status for verification
-
-**Post-installation:**
-- 📝 Remember to authorize your device in the ZeroTier network dashboard
-- 🔑 Your ZeroTier IP will be displayed - use it for SSH connections
-
----
-
-### 🔑 `setup_ssh_keys.sh`
-
-Generates an SSH key pair with a passphrase and configures the agent so the passphrase is entered only once per login session.
-
-**What it does:**
-- Detects existing SSH keys (`id_ed25519`, `id_rsa`, `id_ecdsa`, `id_dsa`) — skips generation if one is found
-- Generates a new **ed25519** key pair and prompts for a passphrase
-- Optionally uploads the public key to a remote OpenSSH server via `ssh-copy-id`
-- Installs **[keychain](https://www.funtoo.org/Keychain)** and configures it in `~/.zshrc` and `~/.bashrc`
-
-**Usage:**
-```bash
-chmod +x setup_ssh_keys.sh
-./setup_ssh_keys.sh
-```
-
-**Interactive prompts:**
-- 🏷️ Key label/comment (e.g. your email or hostname)
-- 🔐 Passphrase (entered directly via `ssh-keygen`)
-- 📤 Whether to upload the public key to a remote server (user/host/port)
-
-**Features:**
-- Uses ed25519 (modern, secure key type)
-- `~/.ssh` is created with correct `700` permissions if it doesn't exist
-- keychain starts `ssh-agent` once at first login; all subsequent terminals reuse the cached agent — no repeated passphrase prompts
-- Gracefully handles `ssh-copy-id` failures (prints the manual command instead of aborting)
-- Idempotent: won't add duplicate keychain lines to rc files
-
-**How the passphrase caching works:**
-The following line is appended to your shell rc files:
-```bash
-eval "$(keychain --eval --agents ssh --quiet $HOME/.ssh/id_ed25519)"
-```
-The first terminal opened after login prompts for the passphrase once. All subsequent terminals and SSH connections reuse the running agent. The agent is cleared on logout or reboot.
-
----
-
-### 🐚 `setup_zsh.sh`
-
-Transforms your terminal with zsh, oh-my-zsh, and beautiful themes.
-
-**What it installs:**
-- **[Zsh](https://www.zsh.org)** - Powerful shell
-- **[Oh-My-Zsh](https://ohmyz.sh)** - Zsh configuration framework
-- **[Powerlevel10k](https://github.com/romkatv/powerlevel10k)** - Fast and customizable theme
-- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** - Fish-like autosuggestions
-- **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** - Syntax highlighting for commands
-- **[Nerd Fonts](https://www.nerdfonts.com)** - Icon-packed fonts (Hack, Meslo, Monaspace, Source Code Pro, Space Mono)
-
-**Usage:**
-```bash
-chmod +x setup_zsh.sh
-./setup_zsh.sh
-```
-
-**Interactive prompts:**
-- 📁 Installation directory for oh-my-zsh (default: `~/.oh-my-zsh`)
-- 🖋️ Install recommended Nerd Fonts (default: `y`)
-
-**Features:**
-- Automatically backs up existing `.zshrc` before modifications
-- Skips already installed components
-- Option to install 5 popular Nerd Fonts (can be skipped)
-- Updates font cache (if fonts installed)
-- **Automatically sets zsh as your default shell**
-
-**Post-installation:**
-- ⚠️ **Important**: Restart your computer after running this script for the shell change to take effect properly
-- Powerlevel10k configuration wizard will start automatically
-- If fonts were installed, select one of the installed Nerd Fonts in your terminal settings for best experience
-
 ## ⚙️ Requirements
 
 - Linux system (Arch-based or Debian/Ubuntu-based)
@@ -266,10 +266,10 @@ chmod +x setup_zsh.sh
 
 5. **🚀 Then run the remaining scripts**:
     ```bash
+    ./setup_ssh_keys.sh     # Generate SSH key pair and configure passphrase caching
+    ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH server
     ./setup_tools.sh        # Install development tools (includes config file installation)
     ./setup_ai_tools.sh     # Install AI tools (llama.cpp-vulkan, lemonade-server, fastflowlm)
-    ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH server
-    ./setup_ssh_keys.sh     # Generate SSH key pair and configure passphrase caching
     ```
 
 ### Run All Scripts
@@ -285,10 +285,10 @@ chmod +x setup_*.sh
 # 2. Restart your computer
 
 # 3. Run remaining scripts
+./setup_ssh_keys.sh     # Generate SSH key pair and configure passphrase caching
+./setup_zerotier_ssh.sh # Setup ZeroTier and SSH server
 ./setup_tools.sh        # Includes interactive config file installation
 ./setup_ai_tools.sh     # Install AI tools (llama.cpp-vulkan, lemonade-server, fastflowlm)
-./setup_zerotier_ssh.sh # Setup ZeroTier and SSH server
-./setup_ssh_keys.sh     # Generate SSH key pair and configure passphrase caching
 ```
 
 ## 🐧 Supported Distributions
