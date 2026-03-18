@@ -75,12 +75,6 @@ Installs essential development tools and applications.
 The config files are stored in the `config-files/` submodule. When initialized, the script automatically detects and offers to install:
 - [![kitty](https://img.shields.io/badge/kitty-1A1A1A?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://sw.kovidgoyal.net/kitty/) - Terminal emulator config (`~/.config/kitty/kitty.conf`)
 - [![OpenCode](https://img.shields.io/badge/OpenCode-121011?style=for-the-badge&logo=python&logoColor=white)](https://opencode.ai) - Code editor config (`~/.config/opencode/opencode.json`)
-- [![llama.cpp-vulkan](https://img.shields.io/badge/llama.cpp--vulkan-121011?style=for-the-badge&logo=python&logoColor=white)](https://github.com/ggml-org/llama.cpp) - GPU-accelerated LLM inference with Vulkan
-- [![lemonade-server](https://img.shields.io/badge/lemonade--server-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://lemonade-server.ai) - Self-hosted AI assistant server
-- [![fastflowlm](https://img.shields.io/badge/fastflowlm-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://fastflowlm.com) - High-performance language model inference
-- [![llama.cpp-vulkan](https://img.shields.io/badge/llama.cpp--vulkan-121011?style=for-the-badge&logo=python&logoColor=white)](https://github.com/ggml-org/llama.cpp) - GPU-accelerated LLM inference with Vulkan
-- [![lemonade-server](https://img.shields.io/badge/lemonade--server-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://lemonade-server.ai) - Self-hosted AI assistant server
-- [![fastflowlm](https://img.shields.io/badge/fastflowlm-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://fastflowlm.com) - High-performance language model inference
 
 **Usage:**
 ```bash
