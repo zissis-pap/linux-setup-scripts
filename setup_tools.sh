@@ -152,6 +152,23 @@ if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
     fi
 fi
 
+# Install podman-compose if podman was chosen
+if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
+    if ! is_installed podman-compose; then
+        echo -e "${YELLOW}Installing podman-compose...${NC}"
+
+        if [ "$DISTRO_TYPE" == "arch" ]; then
+            sudo pacman -S --noconfirm podman-compose
+        elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+            apt_install podman-compose
+        fi
+
+        echo -e "${GREEN}podman-compose installed successfully${NC}\n"
+    else
+        echo -e "${GREEN}podman-compose already installed${NC}\n"
+    fi
+fi
+
 # Install Distrobox
 if ! is_installed distrobox; then
     echo -e "${YELLOW}Installing Distrobox...${NC}"
@@ -442,6 +459,7 @@ if [[ "$CONTAINER_CHOICE" == "1" || "$CONTAINER_CHOICE" == "3" ]]; then
 fi
 if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
     echo -e "${GREEN}✓ Podman installed${NC}"
+    echo -e "${GREEN}✓ podman-compose installed${NC}"
 fi
 # Config file installation
 echo -e "${YELLOW}=== Config File Installation ===${NC}"

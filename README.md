@@ -24,6 +24,7 @@ The submodule is automatically detected by `setup_tools.sh` which prompts you to
 - [Overview](#-overview)
 - [Scripts](#-scripts)
   - [Setup Tools](#-setup_toolssh)
+  - [Setup AI Tools](#-setup_ai_toolssh)
   - [Setup ZeroTier & SSH](#-setup_zerotier_sshshsetup_zerotier_sshsh)
   - [Setup Zsh](#-setup_zshshsetup_zshsh)
 - [Requirements](#-requirements)
@@ -46,6 +47,9 @@ Installs essential development tools and applications.
 - [![Claude Code](https://img.shields.io/badge/Claude_Code-242424?style=for-the-badge&logo=claude&logoColor=white)](https://claude.ai) - AI-powered coding assistant CLI
 - [![Fresh Editor](https://img.shields.io/badge/Fresh_Editor-4F4F4F?style=for-the-badge&logo=visual-studio-code&logoColor=007ACC)](https://github.com/sinelaw/fresh) - Modern text editor
 - [![OpenCode](https://img.shields.io/badge/OpenCode-121011?style=for-the-badge&logo=python&logoColor=white)](https://opencode.ai) - AI-powered code editor
+- [![llama.cpp-vulkan](https://img.shields.io/badge/llama.cpp--vulkan-121011?style=for-the-badge&logo=python&logoColor=white)](https://github.com/ggml-org/llama.cpp) - GPU-accelerated LLM inference with Vulkan
+- [![lemonade-server](https://img.shields.io/badge/lemonade--server-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://lemonade-server.ai) - Self-hosted AI assistant server
+- [![fastflowlm](https://img.shields.io/badge/fastflowlm-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://fastflowlm.com) - High-performance language model inference
 - [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com) - Container platform
 - [![Podman](https://img.shields.io/badge/Podman-5A697B?style=for-the-badge&logo=podman&logoColor=white)](https://podman.io) - Daemonless container engine
 - [![Distrobox](https://img.shields.io/badge/Distrobox-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://github.com/89luca89/distrobox) - Run any Linux distribution inside your terminal
@@ -71,6 +75,12 @@ Installs essential development tools and applications.
 The config files are stored in the `config-files/` submodule. When initialized, the script automatically detects and offers to install:
 - [![kitty](https://img.shields.io/badge/kitty-1A1A1A?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://sw.kovidgoyal.net/kitty/) - Terminal emulator config (`~/.config/kitty/kitty.conf`)
 - [![OpenCode](https://img.shields.io/badge/OpenCode-121011?style=for-the-badge&logo=python&logoColor=white)](https://opencode.ai) - Code editor config (`~/.config/opencode/opencode.json`)
+- [![llama.cpp-vulkan](https://img.shields.io/badge/llama.cpp--vulkan-121011?style=for-the-badge&logo=python&logoColor=white)](https://github.com/ggml-org/llama.cpp) - GPU-accelerated LLM inference with Vulkan
+- [![lemonade-server](https://img.shields.io/badge/lemonade--server-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://lemonade-server.ai) - Self-hosted AI assistant server
+- [![fastflowlm](https://img.shields.io/badge/fastflowlm-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://fastflowlm.com) - High-performance language model inference
+- [![llama.cpp-vulkan](https://img.shields.io/badge/llama.cpp--vulkan-121011?style=for-the-badge&logo=python&logoColor=white)](https://github.com/ggml-org/llama.cpp) - GPU-accelerated LLM inference with Vulkan
+- [![lemonade-server](https://img.shields.io/badge/lemonade--server-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://lemonade-server.ai) - Self-hosted AI assistant server
+- [![fastflowlm](https://img.shields.io/badge/fastflowlm-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://fastflowlm.com) - High-performance language model inference
 
 **Usage:**
 ```bash
@@ -91,6 +101,36 @@ chmod +x setup_tools.sh
 - Checks if tools are already installed before installing (idempotent)
 - Checks package availability before installing on apt — skips gracefully if a package is not in the repositories
 - For apt-based systems, uses `dpkg` to check if packages are already installed
+
+---
+
+### 🔧 `setup_ai_tools.sh`
+
+Installs AI tools and language model inference frameworks.
+
+**What it installs:**
+- [![llama.cpp-vulkan](https://img.shields.io/badge/llama.cpp--vulkan-121011?style=for-the-badge&logo=python&logoColor=white)](https://github.com/ggml-org/llama.cpp) - GPU-accelerated LLM inference with Vulkan support
+- [![lemonade-server](https://img.shields.io/badge/lemonade--server-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://lemonade-server.ai) - Self-hosted AI assistant server
+- [![fastflowlm](https://img.shields.io/badge/fastflowlm-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://fastflowlm.com) - High-performance language model inference
+
+**Usage:**
+```bash
+chmod +x setup_ai_tools.sh
+./setup_ai_tools.sh
+```
+
+**Features:**
+- Uses `paru` (AUR helper) on Arch-based systems for llama.cpp-vulkan and lemonade-server
+- Uses `pacman` on Arch-based systems for fastflowlm
+- Falls back to building from source on Debian/Ubuntu-based systems
+- Automatically detects your package manager (pacman/apt)
+- Checks if tools are already installed before installing (idempotent)
+
+**Supported Distributions:**
+- Arch-based: Uses `paru` and `pacman`
+- Debian/Ubuntu-based: Builds llama.cpp-vulkan and lemonade-server from source (fastflowlm requires Arch)
+
+---
 
 **Submodule setup:**
 ```bash
@@ -195,6 +235,7 @@ chmod +x setup_zsh.sh
 5. **🚀 Then run the remaining scripts**:
     ```bash
     ./setup_tools.sh        # Install development tools (includes config file installation)
+    ./setup_ai_tools.sh     # Install AI tools (llama.cpp-vulkan, lemonade-server, fastflowlm)
     ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH
     ```
 
@@ -212,6 +253,7 @@ chmod +x setup_*.sh
 
 # 3. Run remaining scripts
 ./setup_tools.sh        # Includes interactive config file installation
+./setup_ai_tools.sh     # Install AI tools (llama.cpp-vulkan, lemonade-server, fastflowlm)
 ./setup_zerotier_ssh.sh
 ```
 
@@ -241,6 +283,7 @@ chmod +x setup_*.sh
 - ⚠️ **For best results, run `setup_zsh.sh` first, then restart your computer** before running other scripts
 - Scripts are designed to be run multiple times safely (idempotent)
 - **Config files**: The `config-files/` submodule contains curated configs for kitty and opencode. Initialize with `git submodule update --init --recursive`. `setup_tools.sh` prompts to install these configs or use custom paths
+- **AI tools**: `setup_ai_tools.sh` requires Arch-based system for optimal installation (uses `paru` and `pacman`). On Debian/Ubuntu, builds from source (fastflowlm requires Arch)
 - **Note for zsh configuration**: Changes to `.zshrc` are applied only once, but require `source ~/.zshrc` or a new terminal to take effect
 
 ## 🎨 Color Guide
@@ -253,6 +296,10 @@ Throughout script execution, you'll see color-coded messages:
 ## 🤝 Contributing
 
 Feel free to modify these scripts to suit your needs. They're designed to be readable and easy to customize.
+
+## 👤 Author
+
+**Zissis Papadopoulos**
 
 ## 📄 License
 
