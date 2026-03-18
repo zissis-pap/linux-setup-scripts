@@ -26,6 +26,7 @@ The submodule is automatically detected by `setup_tools.sh` which prompts you to
   - [Setup Tools](#-setup_toolssh)
   - [Setup AI Tools](#-setup_ai_toolssh)
   - [Setup ZeroTier & SSH](#-setup_zerotier_sshshsetup_zerotier_sshsh)
+  - [Setup SSH Keys](#-setup_ssh_keyssh)
   - [Setup Zsh](#-setup_zshshsetup_zshsh)
 - [Requirements](#-requirements)
 - [Usage](#-usage)
@@ -163,6 +164,43 @@ chmod +x setup_zerotier_ssh.sh
 
 ---
 
+### 🔑 `setup_ssh_keys.sh`
+
+Generates an SSH key pair with a passphrase and configures the agent so the passphrase is entered only once per login session.
+
+**What it does:**
+- Detects existing SSH keys (`id_ed25519`, `id_rsa`, `id_ecdsa`, `id_dsa`) — skips generation if one is found
+- Generates a new **ed25519** key pair and prompts for a passphrase
+- Optionally uploads the public key to a remote OpenSSH server via `ssh-copy-id`
+- Installs **[keychain](https://www.funtoo.org/Keychain)** and configures it in `~/.zshrc` and `~/.bashrc`
+
+**Usage:**
+```bash
+chmod +x setup_ssh_keys.sh
+./setup_ssh_keys.sh
+```
+
+**Interactive prompts:**
+- 🏷️ Key label/comment (e.g. your email or hostname)
+- 🔐 Passphrase (entered directly via `ssh-keygen`)
+- 📤 Whether to upload the public key to a remote server (user/host/port)
+
+**Features:**
+- Uses ed25519 (modern, secure key type)
+- `~/.ssh` is created with correct `700` permissions if it doesn't exist
+- keychain starts `ssh-agent` once at first login; all subsequent terminals reuse the cached agent — no repeated passphrase prompts
+- Gracefully handles `ssh-copy-id` failures (prints the manual command instead of aborting)
+- Idempotent: won't add duplicate keychain lines to rc files
+
+**How the passphrase caching works:**
+The following line is appended to your shell rc files:
+```bash
+eval "$(keychain --eval --agents ssh --quiet $HOME/.ssh/id_ed25519)"
+```
+The first terminal opened after login prompts for the passphrase once. All subsequent terminals and SSH connections reuse the running agent. The agent is cleared on logout or reboot.
+
+---
+
 ### 🐚 `setup_zsh.sh`
 
 Transforms your terminal with zsh, oh-my-zsh, and beautiful themes.
@@ -230,7 +268,8 @@ chmod +x setup_zsh.sh
     ```bash
     ./setup_tools.sh        # Install development tools (includes config file installation)
     ./setup_ai_tools.sh     # Install AI tools (llama.cpp-vulkan, lemonade-server, fastflowlm)
-    ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH
+    ./setup_zerotier_ssh.sh # Setup ZeroTier and SSH server
+    ./setup_ssh_keys.sh     # Generate SSH key pair and configure passphrase caching
     ```
 
 ### Run All Scripts
@@ -248,7 +287,8 @@ chmod +x setup_*.sh
 # 3. Run remaining scripts
 ./setup_tools.sh        # Includes interactive config file installation
 ./setup_ai_tools.sh     # Install AI tools (llama.cpp-vulkan, lemonade-server, fastflowlm)
-./setup_zerotier_ssh.sh
+./setup_zerotier_ssh.sh # Setup ZeroTier and SSH server
+./setup_ssh_keys.sh     # Generate SSH key pair and configure passphrase caching
 ```
 
 ## 🐧 Supported Distributions
