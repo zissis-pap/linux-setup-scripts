@@ -169,6 +169,21 @@ if [[ "$CONTAINER_CHOICE" == "2" || "$CONTAINER_CHOICE" == "3" ]]; then
     fi
 fi
 
+# Install Lazygit
+if ! is_installed lazygit; then
+    echo -e "${YELLOW}Installing Lazygit...${NC}"
+
+    if [ "$DISTRO_TYPE" == "arch" ]; then
+        sudo pacman -S --noconfirm lazygit
+    elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
+        apt_install lazygit
+    fi
+
+    echo -e "${GREEN}Lazygit installed successfully${NC}\n"
+else
+    echo -e "${GREEN}Lazygit already installed${NC}\n"
+fi
+
 # Install Distrobox
 if ! is_installed distrobox; then
     echo -e "${YELLOW}Installing Distrobox...${NC}"
@@ -183,6 +198,16 @@ if ! is_installed distrobox; then
 else
     echo -e "${GREEN}Distrobox already installed${NC}\n"
 fi
+
+# Install uv
+echo -e "${YELLOW}Installing uv...${NC}"
+curl -LsSf https://astral.sh/uv/install.sh | sh
+echo -e "${GREEN}uv installed successfully${NC}\n"
+
+# Install bagels
+echo -e "${YELLOW}Installing bagels with uv...${NC}"
+uv tool install --python 3.13 bagels
+echo -e "${GREEN}bagels installed successfully${NC}\n"
 
 # Install time
 if ! is_installed time; then
@@ -572,7 +597,10 @@ echo -e "${GREEN}✓ zoxide installed (if available)${NC}"
 echo -e "${GREEN}✓ Neovim installed (if available)${NC}"
 echo -e "${GREEN}✓ LazyVim installed${NC}"
 echo -e "${GREEN}✓ kitty installed (if available)${NC}"
-echo -e "${GREEN}✓ tmux installed (if available)${NC}\n"
+echo -e "${GREEN}✓ tmux installed (if available)${NC}"
+echo -e "${GREEN}✓ lazygit installed (if available)${NC}"
+echo -e "${GREEN}✓ uv installed${NC}"
+echo -e "${GREEN}✓ bagels installed${NC}\n"
 
 if [[ "$CONFIG_CHOICE" != "3" ]]; then
     if [ -n "$KITTY_CONFIG_PATH" ] && [ -f "$KITTY_CONFIG_PATH" ]; then

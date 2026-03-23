@@ -174,6 +174,9 @@ Installs essential development tools and applications.
 - [![LazyVim](https://img.shields.io/badge/LazyVim-57A143?style=for-the-badge&logo=neovim&logoColor=white)](https://www.lazyvim.org) - Neovim setup powered by lazy.nvim
 - [![kitty](https://img.shields.io/badge/kitty-1A1A1A?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://sw.kovidgoyal.net/kitty/) - Fast, feature-rich GPU-based terminal emulator
 - [![tmux](https://img.shields.io/badge/tmux-1BB91F?style=for-the-badge&logo=tmux&logoColor=white)](https://github.com/tmux/tmux) - Terminal multiplexer
+- [![lazygit](https://img.shields.io/badge/lazygit-1A1A1A?style=for-the-badge&logo=git&logoColor=white)](https://github.com/jesseduffield/lazygit) - Terminal UI for git
+- [![uv](https://img.shields.io/badge/uv-FFD43B?style=for-the-badge&logo=python&logoColor=white)](https://docs.astral.sh/uv/) - Python package installer and manager
+- [![bagels](https://img.shields.io/badge/bagels-FF5500?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/EnhancedJax/Bagels) - Interactive math game
 
 **Config files:**
 The config files are stored in the `config-files/` submodule. When initialized, the script automatically detects and offers to install:
