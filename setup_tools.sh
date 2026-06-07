@@ -261,7 +261,27 @@ if ! is_installed amdgpu_top; then
     if [ "$DISTRO_TYPE" == "arch" ]; then
         sudo pacman -S --noconfirm amdgpu_top
     elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-        apt_install amdgpu-top
+        if apt-cache show amdgpu-top &>/dev/null 2>&1; then
+            apt_install amdgpu-top
+        else
+            echo -e "${YELLOW}amdgpu-top not in apt repos, installing from GitHub releases...${NC}"
+            AMDTOP_VERSION=$(curl -sL https://api.github.com/repos/Umio-Yasuno/amdgpu_top/releases/latest | grep '"tag_name"' | head -1 | cut -d'"' -f4 | sed 's/v//')
+            if [ -n "$AMDTOP_VERSION" ]; then
+                DPKG_ARCH=$(dpkg --print-architecture)
+                if [ "$DPKG_ARCH" = "amd64" ]; then
+                    AMDTOP_TARGET="x86_64-unknown-linux-musl"
+                elif [ "$DPKG_ARCH" = "arm64" ]; then
+                    AMDTOP_TARGET="aarch64-unknown-linux-gnu"
+                fi
+                if [ -n "$AMDTOP_TARGET" ]; then
+                    curl -sL "https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v${AMDTOP_VERSION}/amdgpu_top-${AMDTOP_VERSION}-${AMDTOP_TARGET}.tar.gz" | sudo tar xz -C /usr/local/bin
+                else
+                    echo -e "${YELLOW}Unsupported architecture ($DPKG_ARCH) for amdgpu-top. Skipping.${NC}"
+                fi
+            else
+                echo -e "${YELLOW}Failed to fetch amdgpu-top version. Skipping.${NC}"
+            fi
+        fi
     fi
 
     echo -e "${GREEN}amdgpu_top step done${NC}\n"
@@ -336,7 +356,27 @@ if ! is_installed spf; then
     if [ "$DISTRO_TYPE" == "arch" ]; then
         sudo pacman -S --noconfirm superfile
     elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-        apt_install superfile
+        if apt-cache show superfile &>/dev/null 2>&1; then
+            apt_install superfile
+        else
+            echo -e "${YELLOW}superfile not in apt repos, installing from GitHub releases...${NC}"
+            SPF_VERSION=$(curl -sL https://api.github.com/repos/yorukot/superfile/releases/latest | grep '"tag_name"' | head -1 | cut -d'"' -f4 | sed 's/v//')
+            if [ -n "$SPF_VERSION" ]; then
+                DPKG_ARCH=$(dpkg --print-architecture)
+                if [ "$DPKG_ARCH" = "amd64" ]; then
+                    SPF_ARCH="amd64"
+                elif [ "$DPKG_ARCH" = "arm64" ]; then
+                    SPF_ARCH="arm64"
+                fi
+                if [ -n "$SPF_ARCH" ]; then
+                    curl -sL "https://github.com/yorukot/superfile/releases/download/v${SPF_VERSION}/superfile-linux-v${SPF_VERSION}-${SPF_ARCH}.tar.gz" | sudo tar xz -C /usr/local/bin
+                else
+                    echo -e "${YELLOW}Unsupported architecture ($DPKG_ARCH) for superfile. Skipping.${NC}"
+                fi
+            else
+                echo -e "${YELLOW}Failed to fetch superfile version. Skipping.${NC}"
+            fi
+        fi
     fi
 
     echo -e "${GREEN}superfile step done${NC}\n"
@@ -351,7 +391,27 @@ if ! is_installed navi; then
     if [ "$DISTRO_TYPE" == "arch" ]; then
         sudo pacman -S --noconfirm navi
     elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-        apt_install navi
+        if apt-cache show navi &>/dev/null 2>&1; then
+            apt_install navi
+        else
+            echo -e "${YELLOW}navi not in apt repos, installing from GitHub releases...${NC}"
+            NAVI_VERSION=$(curl -sL https://api.github.com/repos/denisidoro/navi/releases/latest | grep '"tag_name"' | head -1 | cut -d'"' -f4 | sed 's/v//')
+            if [ -n "$NAVI_VERSION" ]; then
+                DPKG_ARCH=$(dpkg --print-architecture)
+                if [ "$DPKG_ARCH" = "amd64" ]; then
+                    NAVI_TARGET="x86_64-unknown-linux-musl"
+                elif [ "$DPKG_ARCH" = "arm64" ]; then
+                    NAVI_TARGET="aarch64-unknown-linux-gnu"
+                fi
+                if [ -n "$NAVI_TARGET" ]; then
+                    curl -sL "https://github.com/denisidoro/navi/releases/download/v${NAVI_VERSION}/navi-v${NAVI_VERSION}-${NAVI_TARGET}.tar.gz" | sudo tar xz -C /usr/local/bin
+                else
+                    echo -e "${YELLOW}Unsupported architecture ($DPKG_ARCH) for navi. Skipping.${NC}"
+                fi
+            else
+                echo -e "${YELLOW}Failed to fetch navi version. Skipping.${NC}"
+            fi
+        fi
     fi
 
     echo -e "${GREEN}navi step done${NC}\n"
@@ -366,7 +426,27 @@ if ! is_installed dua; then
     if [ "$DISTRO_TYPE" == "arch" ]; then
         sudo pacman -S --noconfirm dua-cli
     elif [ "$DISTRO_TYPE" == "ubuntu" ]; then
-        apt_install dua-cli
+        if apt-cache show dua-cli &>/dev/null 2>&1; then
+            apt_install dua-cli
+        else
+            echo -e "${YELLOW}dua-cli not in apt repos, installing from GitHub releases...${NC}"
+            DUA_VERSION=$(curl -sL https://api.github.com/repos/Byron/dua-cli/releases/latest | grep '"tag_name"' | head -1 | cut -d'"' -f4 | sed 's/v//')
+            if [ -n "$DUA_VERSION" ]; then
+                DPKG_ARCH=$(dpkg --print-architecture)
+                if [ "$DPKG_ARCH" = "amd64" ]; then
+                    DUA_TARGET="x86_64-unknown-linux-musl"
+                elif [ "$DPKG_ARCH" = "arm64" ]; then
+                    DUA_TARGET="aarch64-unknown-linux-musl"
+                fi
+                if [ -n "$DUA_TARGET" ]; then
+                    curl -sL "https://github.com/Byron/dua-cli/releases/download/v${DUA_VERSION}/dua-v${DUA_VERSION}-${DUA_TARGET}.tar.gz" | sudo tar xz -C /usr/local/bin
+                else
+                    echo -e "${YELLOW}Unsupported architecture ($DPKG_ARCH) for dua-cli. Skipping.${NC}"
+                fi
+            else
+                echo -e "${YELLOW}Failed to fetch dua-cli version. Skipping.${NC}"
+            fi
+        fi
     fi
 
     echo -e "${GREEN}dua-cli step done${NC}\n"
